@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BoO_UV.CharacterStatsPage"
+             Title="CharacterStatsPage">
+    <Grid Margin="50" ColumnSpacing="50">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+            <Label x:Name="AttackLabel" Text="Attack"/>
+            <Entry x:Name="AttackEntry" Keyboard="Numeric"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+            <Label x:Name="AttackSpeedLabel" Text="Attackspeed"/>
+            <Entry x:Name="AttackSpeedEntry" Keyboard="Numeric"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+            <Label x:Name="CritChanceLabel" Text="Crit-Chance in %"/>
+            <Entry x:Name="CritChanceEntry" Keyboard="Numeric"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+            <Label x:Name="CritDamageLabel" Text="Crit-Damage in %"/>
+            <Entry x:Name="CritDamageEntry" Keyboard="Numeric"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="2" Grid.Column="0">
+            <Label x:Name="AreaLabel" Text="Area in %"/>
+            <Entry x:Name="AreaEntry" Keyboard="Numeric"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="2" Grid.Column="1">
+            <Label x:Name="CooldownLabel" Text="Cooldown in % - NOT USED"/>
+            <Entry x:Name="CooldownEntry" Keyboard="Numeric"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="3" Grid.Column="0">
+            <Label x:Name="PierceLabel" Text="Pierce - NOT USED"/>
+            <Entry x:Name="PierceEntry" Keyboard="Numeric"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="3" Grid.Column="1">
+            <Label x:Name="BounceLabel" Text="Bounce - NOT USED"/>
+            <Entry x:Name="BounceEntry" Keyboard="Numeric"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="4" Grid.Column="0">
+            <Label x:Name="DashLabel" Text="Dash - NOT USED"/>
+            <Entry x:Name="DashEntry" Keyboard="Numeric"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="4" Grid.Column="1">
+            <Label x:Name="HPLabel" Text="HP"/>
+            <Entry x:Name="HPEntry" Keyboard="Numeric"/>
+        </VerticalStackLayout>
+        <!--<Button x:Name="ApplyButton" Text="Apply" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>-->
+    </Grid>
+</ContentPage>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BoO_UV.UpgradeView">
+    <Grid BackgroundColor="Beige" Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid BackgroundColor="Beige" Grid.Row="0">
+            <Image x:Name="holderImg"/>
+            <Image x:Name="rarityImg"/>
+            <Image x:Name="holderImgTemp"/>
+            <Image x:Name="rarityImgTemp"/>
+            <!--<Frame x:Name="rarityTint" BackgroundColor="Blue" Opacity="0.4" CornerRadius="10"/>-->
+            <Image x:Name="typeImg"/>
+        </Grid>
+        <Label x:Name="currentStats" Grid.Row="1"/>
+        <Label x:Name="upgradeStats" Grid.Row="2"/>
+        <Label x:Name="dps" Grid.Row="3"/>
+        <Slider x:Name="slider" ValueChanged="OnSliderValueChanged" DragCompleted="OnSliderDragCompleted" Grid.Row="4"/>
+        <Button x:Name="takeUpgradeButton" Clicked="OnButtonClicked" Text="Take" Grid.Row="5"/>
+    </Grid>
+</ContentView>

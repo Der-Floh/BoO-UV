@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BoO_UV"
+             x:Class="BoO_UV.MainPage">
+
+    <Grid BackgroundColor="Beige">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="1.5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+
+        <ScrollView Grid.Column="0" Grid.ColumnSpan="3">
+            <Grid Padding="30,0" BackgroundColor="Beige">
+                <local:StackGrid x:Name="UpgradeGrid" amount="5"/>
+            </Grid>
+        </ScrollView>
+
+        <ImageButton x:Name="addObject" Source="golden_chest.png" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1" Clicked="AddObjectButtonClicked">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="1" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="0.8" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+        </ImageButton>
+
+        <local:EmbedView x:Name="EmbedView" IsVisible="false" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3">
+            <local:EmbedView.ContentToShow>
+                <ScrollView>
+                    <local:StackGrid x:Name="ObjectStackGrid" amount="5"/>
+                </ScrollView>
+            </local:EmbedView.ContentToShow>
+        </local:EmbedView>
+    </Grid>
+
+</ContentPage>
