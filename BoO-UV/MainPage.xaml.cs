@@ -48,6 +48,7 @@ public partial class MainPage : ContentPage
     {
         JsonHandler jsonHandler = new JsonHandler();
         string path = Path.Combine(jsonHandler.directorypath, jsonHandler.directoryname, jsonHandler.libdirectoryname, jsonHandler.objectdirectoryname);
+        string pathDirect = "C:/Users/Florian/AppData/Local/Packages/347CF3BF-B359-4FEF-8327-CAA1A9F831CC_pctxdz6jfny8t/LocalState/BoO-UV";
         DirectoryInfo directoryInfo = new DirectoryInfo(path);
         try
         {
@@ -115,6 +116,7 @@ public partial class MainPage : ContentPage
             if (currObject.hasEffect)
                 possibleObjects.Add(currObject);
         }
+        possibleObjects = possibleObjects.OrderBy(x => x.rarity).ToList();
     }
     private void AddObjectButtonClicked(object sender, EventArgs args)
     {

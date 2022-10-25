@@ -85,8 +85,8 @@
                     rarityPath = "object_rarity_epic.png";
                     break;
                 case 3:
-                    holderPath = "object_holder_legandary.png";
-                    rarityPath = "object_rarity_legandary.png";
+                    holderPath = "object_holder_legendary.png";
+                    rarityPath = "object_rarity_legendary.png";
                     break;
             }
         }

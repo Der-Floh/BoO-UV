@@ -12,6 +12,5 @@
             <Image x:Name="rarityImg"/>
             <Image x:Name="typeImg"/>
         </Grid>
-        <!--<Button x:Name="TakeObjectButton2" Clicked="OnButtonClicked" Text="Take Object" Grid.Row="0"/>-->
     </Grid>
 </ContentView>
