@@ -15,18 +15,18 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ImageButton x:Name="Cancel" Source="skip_chest.png" BackgroundColor="Transparent" Grid.Row="2" Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Start" Clicked="OnCancelButtonClicked">
+        <ImageButton x:Name="Cancel" Source="skip_chest.png" BackgroundColor="Transparent" Grid.Row="2" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" Clicked="OnCancelButtonClicked">
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroupList>
                     <VisualStateGroup x:Name="CommonStates">
                         <VisualState x:Name="Normal">
                             <VisualState.Setters>
-                                <Setter Property="Scale" Value="1" />
+                                <Setter Property="Scale" Value="1"/>
                             </VisualState.Setters>
                         </VisualState>
                         <VisualState x:Name="Pressed">
                             <VisualState.Setters>
-                                <Setter Property="Scale" Value="0.8" />
+                                <Setter Property="Scale" Value="0.8"/>
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -34,7 +34,7 @@
             </VisualStateManager.VisualStateGroups>
         </ImageButton>
         <Frame BackgroundColor="Beige" BorderColor="Black" CornerRadius="30" Grid.Row="1" Grid.Column="1">
-        <Grid x:Name="ObjectContent" Grid.Row="1" Grid.Column="1" BackgroundColor="Beige"/>
+            <Grid x:Name="ObjectContent" Grid.Row="1" Grid.Column="1" BackgroundColor="Beige"/>
         </Frame>
     </Grid>
 </ContentView>
