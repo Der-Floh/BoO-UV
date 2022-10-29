@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BoO_UV.SettingsPage"
+             Title="SettingsPage">
+    <StackLayout>
+        <Button x:Name="SaveLocationButton" Text="Open Save Location"/>
+        <Button x:Name="ResetObjectButton" Text="Reset Objects"/>
+    </StackLayout>
+</ContentPage>

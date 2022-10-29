@@ -4,14 +4,15 @@ namespace BoO_UV;
 
 public partial class MainPage : ContentPage
 {
-    public List<UpgradeView> upgradeViews { get; set; } = new List<UpgradeView>();
-    public List<ObjectView> objectViews { get; set; } = new List<ObjectView>();
-    public List<Object> possibleObjects { get; set; } = new List<Object>();
-    //public ObjectView objectView { get; set; }
     public MainPage()
     {
         InitializeComponent();
-        CreateCurrentExistingObjects();
+        Globals.wantedUpgrades.Add(UpgradeType.damage);
+        Globals.wantedUpgrades.Add(UpgradeType.attackSpeed);
+        Globals.wantedUpgrades.Add(UpgradeType.critChance);
+        Globals.wantedUpgrades.Add(UpgradeType.critDamage);
+        Globals.wantedUpgrades.Add(UpgradeType.hp);
+        Globals.CreateCurrentExistingObjects();
         CreateDefaultUpgrades();
         CreateDefaultObjects();
         Appearing += MainPage_Appearing;
@@ -21,7 +22,7 @@ public partial class MainPage : ContentPage
 
     private void MainPage_Appearing(object sender, EventArgs e)
     {
-        foreach (UpgradeView view in upgradeViews)
+        foreach (UpgradeView view in Globals.upgradeViews)
         {
             view.UpdateValues();
         }
@@ -29,18 +30,30 @@ public partial class MainPage : ContentPage
 
     public void CreateDefaultUpgrades()
     {
+        /*
         for (int i = 0; i < 5; i++)
         {
             Upgrade upgrade = new Upgrade { type = (UpgradeType)i };
-            upgradeViews.Add(new UpgradeView(upgrade));
-            UpgradeGrid.Rebuild(upgradeViews[i]);
+            Globals.upgradeViews.Add(new UpgradeView(upgrade));
+            UpgradeGrid.Rebuild(Globals.upgradeViews[i]);
+        }*/
+        int i = 0;
+        foreach (UpgradeType upgradeType in (UpgradeType[]) Enum.GetValues(typeof(UpgradeType)))
+        {
+            if (Globals.wantedUpgrades.Contains(upgradeType))
+            {
+                Upgrade upgrade = new Upgrade { type = upgradeType };
+                Globals.upgradeViews.Add(new UpgradeView(upgrade));
+                UpgradeGrid.Rebuild(Globals.upgradeViews[i]);
+                i++;
+            }
         }
     }
     public void CreateDefaultObjects()
     {
-        foreach (Object currobject in possibleObjects)
+        foreach (Object currobject in Globals.possibleObjects)
         {
-            objectViews.Add(new ObjectView(currobject, EmbedView, this));
+            Globals.objectViews.Add(new ObjectView(currobject, EmbedView, this));
         }
     }
 
@@ -110,18 +123,27 @@ public partial class MainPage : ContentPage
         new Object("valiant_heart", 0);
         new Object("warning_shot", 0);
 
-        foreach (Object currObject in MauiProgram.objectList)
+        foreach (Object currObject in Globals.objectList)
         {
             jsonHandler.WriteObject(currObject);
             if (currObject.hasEffect)
-                possibleObjects.Add(currObject);
+                Globals.possibleObjects.Add(currObject);
         }
-        possibleObjects = possibleObjects.OrderBy(x => x.rarity).ToList();
+        Globals.possibleObjects = Globals.possibleObjects.OrderBy(x => x.rarity).ToList();
+    }
+    public void ResetObjects()
+    {
+        Globals.objectList.Clear();
+        JsonHandler jsonHandler = new JsonHandler();
+        string path = Path.Combine(jsonHandler.directorypath, jsonHandler.directoryname, jsonHandler.libdirectoryname, jsonHandler.objectdirectoryname);
+        DirectoryInfo directoryInfo = new DirectoryInfo(path);
+        directoryInfo.Delete(true);
+        CreateCurrentExistingObjects();
     }
     private void AddObjectButtonClicked(object sender, EventArgs args)
     {
         ObjectStackGrid.Clear();
-        foreach (ObjectView objectView in objectViews)
+        foreach (ObjectView objectView in Globals.objectViews)
         {
             ObjectStackGrid.Rebuild(objectView);
         }
