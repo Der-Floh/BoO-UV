@@ -8,7 +8,7 @@ public partial class ObjectView : ContentView
         set
         {
             _currobject = value;
-            UpdateObject(_currobject.rarity);
+            UpdateObject();
             typeImg.Source = currobject.imagePath;
             rarityImg.Source = currobject.rarityPath;
             holderImg.Source = currobject.holderPath;
@@ -25,7 +25,7 @@ public partial class ObjectView : ContentView
         this.embedView = embedView;
     }
 
-    private void UpdateObject(byte rarity)
+    private void UpdateObject()
     {
         labels.Clear();
         AddLabels(Globals.currText);
@@ -36,6 +36,7 @@ public partial class ObjectView : ContentView
 
         Globals.player.RemoveObject(currobject);
 
+        //labels.Add(new Label { Text = "Curr dps: " + Globals.player.GetDps().ToString() });
         labels.Add(new Label { Text = Globals.dpsText + Globals.player.GetDps(null, currobject).ToString() });
 
         int i = 0;
@@ -50,6 +51,17 @@ public partial class ObjectView : ContentView
         TakeObjectButton.Clicked += OnButtonClicked;
         ObjectsGrid.AddRowDefinition(new RowDefinition(new GridLength(1.5, GridUnitType.Star)));
         ObjectsGrid.Add(TakeObjectButton, 0, i + 1);
+    }
+
+    public void UpdateValues()
+    {
+        ObjectsGrid.Clear();
+        ObjectsGrid.RowDefinitions.Clear();
+        ObjectsGrid.AddRowDefinition(new RowDefinition(new GridLength(10, GridUnitType.Star)));
+        ObjectsGrid.Add(holderImg, 0, 0);
+        ObjectsGrid.Add(rarityImg, 0, 0);
+        ObjectsGrid.Add(typeImg, 0, 0);
+        UpdateObject();
     }
 
     private void AddLabels(string prefix)

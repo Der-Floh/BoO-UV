@@ -144,6 +144,7 @@ public partial class MainPage : ContentPage
         ObjectStackGrid.Clear();
         foreach (ObjectView objectView in Globals.objectViews)
         {
+            objectView.UpdateValues();
             ObjectStackGrid.Rebuild(objectView);
         }
         /*

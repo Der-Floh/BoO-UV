@@ -19,7 +19,7 @@ public partial class CharacterStatsPage : ContentPage
         DashEntry.TextChanged += DashEntry_TextChanged;
         HPEntry.TextChanged += HPEntry_TextChanged;
 
-        //ApplyButton.Clicked += ApplyButton_Clicked;
+        ResetButton.Clicked += ResetButton_Clicked;
     }
 
     private void CharacterStatsPage_Disappearing(object sender, EventArgs e)
@@ -48,17 +48,11 @@ public partial class CharacterStatsPage : ContentPage
         HPEntry.Text = Globals.player.hp.ToString();
     }
 
-    private void ApplyButton_Clicked(object sender, EventArgs e)
+    private void ResetButton_Clicked(object sender, EventArgs e)
     {
-        Globals.player.attack = int.Parse(AttackEntry.Text);
-        Globals.player.attackSpeed = double.Parse(AttackSpeedEntry.Text);
-        Globals.player.critChance = int.Parse(CritChanceEntry.Text) / 100.0;
-        Globals.player.critDamage = int.Parse(CritDamageEntry.Text) / 100.0;
-        //Globals.player.area = int.Parse(AreaEntry.Text) / 100.0;
-        //Globals.player.cooldown = int.Parse(CooldownEntry.Text) / 100.0;
-        //Globals.player.pierce = int.Parse(PierceEntry.Text);
-        //Globals.player.bounce = int.Parse(BounceEntry.Text);
-        Globals.player.hp = int.Parse(HPEntry.Text);
+        Player newPlayer = new Player();
+        Globals.player = newPlayer;
+        CharacterStatsPage_Appearing(this, new EventArgs());
     }
 
     private void AttackEntry_TextChanged(object sender, TextChangedEventArgs e)
