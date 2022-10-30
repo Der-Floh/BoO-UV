@@ -24,41 +24,41 @@ public partial class CharacterStatsPage : ContentPage
 
     private void CharacterStatsPage_Disappearing(object sender, EventArgs e)
     {
-        MauiProgram.player.attack = int.Parse(AttackEntry.Text);
-        MauiProgram.player.attackSpeed = double.Parse(AttackSpeedEntry.Text);
-        MauiProgram.player.critChance = int.Parse(CritChanceEntry.Text) / 100.0;
-        MauiProgram.player.critDamage = int.Parse(CritDamageEntry.Text) / 100.0;
-        //MauiProgram.player.area = int.Parse(AreaEntry.Text) / 100.0;
-        //MauiProgram.player.cooldown = int.Parse(CooldownEntry.Text) / 100.0;
-        //MauiProgram.player.pierce = int.Parse(PierceEntry.Text);
-        //MauiProgram.player.bounce = int.Parse(BounceEntry.Text);
-        MauiProgram.player.hp = int.Parse(HPEntry.Text);
+        Globals.player.attack = int.Parse(AttackEntry.Text);
+        Globals.player.attackSpeed = double.Parse(AttackSpeedEntry.Text);
+        Globals.player.critChance = int.Parse(CritChanceEntry.Text) / 100.0;
+        Globals.player.critDamage = int.Parse(CritDamageEntry.Text) / 100.0;
+        //Globals.player.area = int.Parse(AreaEntry.Text) / 100.0;
+        //Globals.player.cooldown = int.Parse(CooldownEntry.Text) / 100.0;
+        //Globals.player.pierce = int.Parse(PierceEntry.Text);
+        //Globals.player.bounce = int.Parse(BounceEntry.Text);
+        Globals.player.hp = int.Parse(HPEntry.Text);
     }
 
     private void CharacterStatsPage_Appearing(object sender, EventArgs e)
     {
-        AttackEntry.Text = MauiProgram.player.attack.ToString();
-        AttackSpeedEntry.Text = MauiProgram.player.attackSpeed.ToString();
-        CritChanceEntry.Text = (MauiProgram.player.critChance * 100).ToString();
-        CritDamageEntry.Text = (MauiProgram.player.critDamage * 100).ToString();
-        AreaEntry.Text = (MauiProgram.player.area * 100).ToString();
-        CooldownEntry.Text = (MauiProgram.player.cooldown * 100).ToString();
-        PierceEntry.Text = MauiProgram.player.pierce.ToString();
-        BounceEntry.Text = MauiProgram.player.bounce.ToString();
-        HPEntry.Text = MauiProgram.player.hp.ToString();
+        AttackEntry.Text = Globals.player.attack.ToString();
+        AttackSpeedEntry.Text = Globals.player.attackSpeed.ToString();
+        CritChanceEntry.Text = (Globals.player.critChance * 100).ToString();
+        CritDamageEntry.Text = (Globals.player.critDamage * 100).ToString();
+        AreaEntry.Text = (Globals.player.area * 100).ToString();
+        CooldownEntry.Text = (Globals.player.cooldown * 100).ToString();
+        PierceEntry.Text = Globals.player.pierce.ToString();
+        BounceEntry.Text = Globals.player.bounce.ToString();
+        HPEntry.Text = Globals.player.hp.ToString();
     }
 
     private void ApplyButton_Clicked(object sender, EventArgs e)
     {
-        MauiProgram.player.attack = int.Parse(AttackEntry.Text);
-        MauiProgram.player.attackSpeed = double.Parse(AttackSpeedEntry.Text);
-        MauiProgram.player.critChance = int.Parse(CritChanceEntry.Text) / 100.0;
-        MauiProgram.player.critDamage = int.Parse(CritDamageEntry.Text) / 100.0;
-        //MauiProgram.player.area = int.Parse(AreaEntry.Text) / 100.0;
-        //MauiProgram.player.cooldown = int.Parse(CooldownEntry.Text) / 100.0;
-        //MauiProgram.player.pierce = int.Parse(PierceEntry.Text);
-        //MauiProgram.player.bounce = int.Parse(BounceEntry.Text);
-        MauiProgram.player.hp = int.Parse(HPEntry.Text);
+        Globals.player.attack = int.Parse(AttackEntry.Text);
+        Globals.player.attackSpeed = double.Parse(AttackSpeedEntry.Text);
+        Globals.player.critChance = int.Parse(CritChanceEntry.Text) / 100.0;
+        Globals.player.critDamage = int.Parse(CritDamageEntry.Text) / 100.0;
+        //Globals.player.area = int.Parse(AreaEntry.Text) / 100.0;
+        //Globals.player.cooldown = int.Parse(CooldownEntry.Text) / 100.0;
+        //Globals.player.pierce = int.Parse(PierceEntry.Text);
+        //Globals.player.bounce = int.Parse(BounceEntry.Text);
+        Globals.player.hp = int.Parse(HPEntry.Text);
     }
 
     private void AttackEntry_TextChanged(object sender, TextChangedEventArgs e)

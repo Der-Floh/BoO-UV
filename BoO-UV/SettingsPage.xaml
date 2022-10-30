@@ -3,8 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BoO_UV.SettingsPage"
              Title="SettingsPage">
-    <StackLayout>
-        <Button x:Name="SaveLocationButton" Text="Open Save Location"/>
-        <Button x:Name="ResetObjectButton" Text="Reset Objects"/>
+    <StackLayout Margin="50" Spacing="50">
+        <Button x:Name="SaveLocationButton" Text="Open Save Location" Clicked="SaveLocationButton_Clicked"/>
+        <Button x:Name="ResetObjectButton" Text="Reset Objects" Clicked="ResetObjectsButton_Clicked"/>
+        <VerticalStackLayout>
+            <Label Text="Upgrade Amount per Row"/>
+            <Entry x:Name="UpgradeAmountEntry" Keyboard="Numeric" TextChanged="UpgradeAmountEntry_TextChanged"/>
+        </VerticalStackLayout>
     </StackLayout>
 </ContentPage>

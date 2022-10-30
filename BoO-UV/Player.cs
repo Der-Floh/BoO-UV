@@ -52,9 +52,10 @@ namespace BoO_UV
                 return areaTemp;
             }
         }
+        public int resurrect { get; set; }
         public List<Object> objects { get; set; } = new List<Object>();
 
-        public Player(int attack = 40, double attackSpeed = 1.5, double critChance = 0.05, double critDamage = 2, int hp = 3, int pierce = 0, int bounce = 0, double cooldown = 1, double area = 1)
+        public Player(int attack = 40, double attackSpeed = 1.5, double critChance = 0.05, double critDamage = 2, int hp = 3, int pierce = 0, int bounce = 0, double cooldown = 1, double area = 1, int resurrect = 0)
         {
             this.attack = attack;
             this.attackSpeed = attackSpeed;
@@ -65,6 +66,7 @@ namespace BoO_UV
             this.bounce = bounce;
             this.cooldown = cooldown;
             this.area = area;
+            this.resurrect = resurrect;
         }
 
         public void AddUpgrade(Upgrade upgrade, bool throwGetEvent = false)
@@ -125,9 +127,9 @@ namespace BoO_UV
         private void AddAttackSpeedUpgrade(byte rarity, bool add)
         {
             if (add)
-                attackSpeed = Math.Round(attackSpeed + GetAttackSpeedUpgrade(rarity), MauiProgram.roundingPrecision);
+                attackSpeed = Math.Round(attackSpeed + GetAttackSpeedUpgrade(rarity), Globals.roundingPrecision);
             else
-                attackSpeed = Math.Round(attackSpeed - GetAttackSpeedUpgrade(rarity), MauiProgram.roundingPrecision);
+                attackSpeed = Math.Round(attackSpeed - GetAttackSpeedUpgrade(rarity), Globals.roundingPrecision);
         }
         private double GetAttackSpeedUpgrade(byte rarity)
         {
@@ -143,9 +145,9 @@ namespace BoO_UV
         private void AddCritChanceUpgrade(byte rarity, bool add)
         {
             if (add)
-                critChance = Math.Round(critChance + GetCritChanceUpgrade(rarity), MauiProgram.roundingPrecision);
+                critChance = Math.Round(critChance + GetCritChanceUpgrade(rarity), Globals.roundingPrecision);
             else
-                critChance = Math.Round(critChance - GetCritChanceUpgrade(rarity), MauiProgram.roundingPrecision);
+                critChance = Math.Round(critChance - GetCritChanceUpgrade(rarity), Globals.roundingPrecision);
         }
         private double GetCritChanceUpgrade(byte rarity)
         {
@@ -159,9 +161,9 @@ namespace BoO_UV
         private void AddCritDamageUpgrade(byte rarity, bool add)
         {
             if (add)
-                critDamage = Math.Round(critDamage + GetCritDamageUpgrade(rarity), MauiProgram.roundingPrecision);
+                critDamage = Math.Round(critDamage + GetCritDamageUpgrade(rarity), Globals.roundingPrecision);
             else
-                critDamage = Math.Round(critDamage - GetCritDamageUpgrade(rarity), MauiProgram.roundingPrecision);
+                critDamage = Math.Round(critDamage - GetCritDamageUpgrade(rarity), Globals.roundingPrecision);
         }
         private double GetCritDamageUpgrade(byte rarity)
         {
@@ -229,7 +231,7 @@ namespace BoO_UV
 
             if (currupgrade != null) RemoveUpgrade(currupgrade);
             if (currobject != null) RemoveObject(currobject);
-            return Math.Round(dps, MauiProgram.roundingPrecision);
+            return Math.Round(dps, Globals.roundingPrecision);
         }
     }
 

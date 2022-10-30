@@ -53,7 +53,7 @@ public partial class MainPage : ContentPage
     {
         foreach (Object currobject in Globals.possibleObjects)
         {
-            Globals.objectViews.Add(new ObjectView(currobject, EmbedView, this));
+            Globals.objectViews.Add(new ObjectView(currobject, EmbedView));
         }
     }
 
@@ -61,7 +61,6 @@ public partial class MainPage : ContentPage
     {
         JsonHandler jsonHandler = new JsonHandler();
         string path = Path.Combine(jsonHandler.directorypath, jsonHandler.directoryname, jsonHandler.libdirectoryname, jsonHandler.objectdirectoryname);
-        string pathDirect = "C:/Users/Florian/AppData/Local/Packages/347CF3BF-B359-4FEF-8327-CAA1A9F831CC_pctxdz6jfny8t/LocalState/BoO-UV";
         DirectoryInfo directoryInfo = new DirectoryInfo(path);
         try
         {

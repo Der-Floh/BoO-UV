@@ -13,30 +13,13 @@ namespace BoO_UV
         public static List<ObjectView> objectViews { get; set; } = new List<ObjectView>();
         public static List<UpgradeType> wantedUpgrades { get; set; } = new List<UpgradeType>();
         public static List<Object> possibleObjects { get; set; } = new List<Object>();
-        public static int roundingPrecision { get; set; } = 2;
         public static Player player { get; set; } = new Player();
-        
-        public static void CreateDefaultUpgrades()
-        {
-            /*
-            for (int i = 0; i < 5; i++)
-            {
-                Upgrade upgrade = new Upgrade { type = (UpgradeType)i };
-                upgradeViews.Add(new UpgradeView(upgrade));
-                UpgradeGrid.Rebuild(upgradeViews[i]);
-            }*//*
-            int i = 0;
-            foreach (UpgradeType upgradeType in (UpgradeType[])Enum.GetValues(typeof(UpgradeType)))
-            {
-                if (wantedUpgrades.Contains(upgradeType))
-                {
-                    Upgrade upgrade = new Upgrade { type = upgradeType };
-                    upgradeViews.Add(new UpgradeView(upgrade));
-                    UpgradeGrid.Rebuild(upgradeViews[i]);
-                    i++;
-                }
-            }*/
-        }
+
+        public static int roundingPrecision { get; set; } = 2;
+        public static int upgradeAmount { get; set; } = 5;
+        public static string currText { get; set; } = "Curr ";
+        public static string newText { get; set; } = "New ";
+        public static string dpsText { get; set; } = "DpS when taken: ";
 
         public static void CreateCurrentExistingObjects()
         {

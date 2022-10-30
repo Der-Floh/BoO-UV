@@ -131,5 +131,28 @@ namespace BoO_UV
                 return null;
             }
         }
+
+        public string name
+        {
+            get
+            {
+                switch (type)
+                {
+                    case UpgradeType.damage: return "Damage";
+                    case UpgradeType.attackSpeed: return "Attackspeed";
+                    case UpgradeType.critChance: return "Crit-Chance";
+                    case UpgradeType.critDamage: return "Crit-Damage";
+                    case UpgradeType.hp: return "HP";
+                    case UpgradeType.area: return "Area";
+                    case UpgradeType.cooldown: return "Cooldown";
+                    case UpgradeType.pierce: return "Pierce";
+                    case UpgradeType.bounce: return "Bounce";
+                    case UpgradeType.dash: return "Dash";
+                    case UpgradeType.choice: return "Choice";
+                    case UpgradeType.resurrect: return "Resurrect";
+                }
+                return null;
+            }
+        }
     }
 }

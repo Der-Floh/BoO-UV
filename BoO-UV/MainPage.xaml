@@ -17,7 +17,7 @@
 
         <ScrollView Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="2">
             <Grid Padding="30,0" BackgroundColor="Beige">
-                <local:StackGrid x:Name="UpgradeGrid" amount="5"/>
+                <local:StackGrid x:Name="UpgradeGrid"/>
             </Grid>
         </ScrollView>
 
@@ -45,7 +45,7 @@
         <local:EmbedView x:Name="EmbedView" IsVisible="false" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3">
             <local:EmbedView.ContentToShow>
                 <ScrollView>
-                    <local:StackGrid x:Name="ObjectStackGrid" amount="5"/>
+                    <local:StackGrid x:Name="ObjectStackGrid"/>
                 </ScrollView>
             </local:EmbedView.ContentToShow>
         </local:EmbedView>

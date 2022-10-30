@@ -16,5 +16,10 @@
             <ShellContent ContentTemplate="{DataTemplate local:CharacterStatsPage}" />
         </Tab>
     </FlyoutItem>
+    <FlyoutItem Title="Settings">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" />
+        </Tab>
+    </FlyoutItem>
 
 </Shell>

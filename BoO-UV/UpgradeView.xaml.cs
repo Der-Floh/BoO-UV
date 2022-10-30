@@ -16,7 +16,7 @@ public partial class UpgradeView : ContentView
     public UpgradeView(Upgrade upgrade)
     {
         InitializeComponent();
-        MauiProgram.player.onGetUpgrade += OnPlayerGetUpgrade;
+        Globals.player.onGetUpgrade += OnPlayerGetUpgrade;
         this.upgrade = upgrade;
     }
 
@@ -42,19 +42,6 @@ public partial class UpgradeView : ContentView
         rarityImg.Source = upgrade.rarityImage;
     }
 
-    //void UpdateRarityColor()
-    //{
-    //    switch (upgrade.rarity)
-    //    {
-    //        case 0:
-    //            rarityTint.BackgroundColor = Colors.Transparent;
-    //            break;
-    //        case 1:
-    //            rarityTint.BackgroundColor = Colors.Blue;
-    //            break;
-    //    }
-    //}
-
     private void UpdateUpgrade(byte rarity, bool updateRarity = false)
     {
         if (updateRarity)
@@ -63,28 +50,32 @@ public partial class UpgradeView : ContentView
             slider.Minimum = upgrade.rarityMin;
             slider.Maximum = upgrade.rarityMax;
             slider.Value = upgrade.rarity;
-            //UpdateRarityColor();
             ChangeImage();
         }
         
-        currentStats.Text = GetStatsText("Curr ");
+        currentStats.Text = GetStatsText(Globals.currText);
 
-        MauiProgram.player.AddUpgrade(upgrade);
-        upgradeStats.Text = GetStatsText("New ");
-        MauiProgram.player.RemoveUpgrade(upgrade);
+        Globals.player.AddUpgrade(upgrade);
+        upgradeStats.Text = GetStatsText(Globals.newText);
+        Globals.player.RemoveUpgrade(upgrade);
 
-        dps.Text = "DpS when Taken: " + MauiProgram.player.GetDps(upgrade).ToString();
+        dps.Text = Globals.dpsText + Globals.player.GetDps(upgrade).ToString();
     }
 
     private string GetStatsText(string prefix)
     {
         switch (upgrade.type)
         {
-            case UpgradeType.damage: return prefix + "Damage: " + Math.Round(MauiProgram.player.attackCalc, MauiProgram.roundingPrecision);
-            case UpgradeType.attackSpeed: return prefix + "Attackspeed: " + Math.Round(MauiProgram.player.attackSpeedCalc, MauiProgram.roundingPrecision);
-            case UpgradeType.critChance: return prefix + "Crit-Chance: " + Math.Round(MauiProgram.player.critChance * 100, MauiProgram.roundingPrecision) + "%";
-            case UpgradeType.critDamage: return prefix + "Crit-Damage: " + Math.Round(MauiProgram.player.critDamage * 100, MauiProgram.roundingPrecision) + "%";
-            case UpgradeType.hp: return prefix + "HP: " + MauiProgram.player.hp;
+            case UpgradeType.damage: return prefix + upgrade.name + ": " + Math.Round(Globals.player.attackCalc, Globals.roundingPrecision);
+            case UpgradeType.attackSpeed: return prefix + upgrade.name + ": " + Math.Round(Globals.player.attackSpeedCalc, Globals.roundingPrecision);
+            case UpgradeType.critChance: return prefix + upgrade.name + ": " + Math.Round(Globals.player.critChance * 100, Globals.roundingPrecision) + "%";
+            case UpgradeType.critDamage: return prefix + upgrade.name + ": " + Math.Round(Globals.player.critDamage * 100, Globals.roundingPrecision) + "%";
+            case UpgradeType.hp: return prefix + upgrade.name + ": " + Globals.player.hp;
+            case UpgradeType.pierce: return prefix + upgrade.name + ": " + Globals.player.pierce;
+            case UpgradeType.bounce: return prefix + upgrade.name + ": " + Globals.player.bounce;
+            case UpgradeType.cooldown: return prefix + upgrade.name + ": " + Math.Round(Globals.player.cooldown * 100, Globals.roundingPrecision) + "%";
+            case UpgradeType.area: return prefix + upgrade.name + ": " + Math.Round(Globals.player.areaCalc, Globals.roundingPrecision);
+            case UpgradeType.resurrect: return prefix + upgrade.name + ": " + Globals.player.resurrect;
         }
         return null;
     }
@@ -92,8 +83,6 @@ public partial class UpgradeView : ContentView
     public void RecalculateRarity()
     {
         UpdateUpgrade(upgrade.rarity, true);
-        //slider.Value = upgrade.rarityMax;
-        //slider.Value = upgrade.rarityMin;
     }
     public void UpdateValues()
     {
@@ -102,7 +91,7 @@ public partial class UpgradeView : ContentView
 
     private void OnButtonClicked(object sender, EventArgs args)
     {
-        MauiProgram.player.AddUpgrade(upgrade, true);
+        Globals.player.AddUpgrade(upgrade, true);
     }
 
     private void OnPlayerGetUpgrade(object sender, UpgradeEventArgs args)

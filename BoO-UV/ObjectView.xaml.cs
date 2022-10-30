@@ -17,28 +17,26 @@ public partial class ObjectView : ContentView
     private Object _currobject;
     private List<Label> labels = new List<Label>();
     private EmbedView embedView;
-    private MainPage mainPage;
-    public ObjectView(Object currobject, in EmbedView embedView, in MainPage mainPage)
+    public ObjectView(Object currobject, in EmbedView embedView)
     {
         InitializeComponent();
-        MauiProgram.player.onGetObject += OnGetObject;
+        Globals.player.onGetObject += OnGetObject;
         this.currobject = currobject;
         this.embedView = embedView;
-        this.mainPage = mainPage;
     }
 
     private void UpdateObject(byte rarity)
     {
         labels.Clear();
-        AddLabels("Curr");
+        AddLabels(Globals.currText);
 
-        MauiProgram.player.AddObject(currobject);
+        Globals.player.AddObject(currobject);
 
-        AddLabels("New");
+        AddLabels(Globals.newText);
 
-        MauiProgram.player.RemoveObject(currobject);
+        Globals.player.RemoveObject(currobject);
 
-        labels.Add(new Label { Text = "DpS when Taken: " + MauiProgram.player.GetDps(null, currobject).ToString() });
+        labels.Add(new Label { Text = Globals.dpsText + Globals.player.GetDps(null, currobject).ToString() });
 
         int i = 0;
         foreach (Label label in labels)
@@ -57,35 +55,41 @@ public partial class ObjectView : ContentView
     private void AddLabels(string prefix)
     {
         if (currobject.attackBaseAdd != 0 || currobject.attackMultiplicator != 0)
-            labels.Add(new Label { Text = prefix + " Damage: " + Math.Round(MauiProgram.player.attackCalc, MauiProgram.roundingPrecision) });
+            labels.Add(new Label { Text = prefix + "Damage: " + Math.Round(Globals.player.attackCalc, Globals.roundingPrecision) });
 
         if (currobject.attackSpeedBaseAdd != 0 || currobject.attackSpeedMultiplicator != 0)
-            labels.Add(new Label { Text = prefix + " Attackspeed: " + Math.Round(MauiProgram.player.attackSpeedCalc, MauiProgram.roundingPrecision) });
+            labels.Add(new Label { Text = prefix + "Attackspeed: " + Math.Round(Globals.player.attackSpeedCalc, Globals.roundingPrecision) });
 
         if (currobject.critChanceBaseAdd != 0)
-            labels.Add(new Label { Text = prefix + " Crit-Chance: " + Math.Round(MauiProgram.player.critChance * 100, MauiProgram.roundingPrecision) + "%" });
+            labels.Add(new Label { Text = prefix + "Crit-Chance: " + Math.Round(Globals.player.critChance * 100, Globals.roundingPrecision) + "%" });
 
         if (currobject.critDamageBaseAdd != 0)
-            labels.Add(new Label { Text = prefix + " Crit-Damage: " + Math.Round(MauiProgram.player.critDamage * 100, MauiProgram.roundingPrecision) + "%" });
+            labels.Add(new Label { Text = prefix + "Crit-Damage: " + Math.Round(Globals.player.critDamage * 100, Globals.roundingPrecision) + "%" });
+
+        if (currobject.cooldownBaseAdd != 0 | currobject.cooldownMultiplicator != 0)
+            labels.Add(new Label { Text = prefix + "Cooldown: " + Math.Round(Globals.player.cooldown * 100, Globals.roundingPrecision) + "%" });
 
         if (currobject.areaBaseAdd != 0 || currobject.areaMultiplicator != 0)
-            labels.Add(new Label { Text = prefix + " Area: " + Math.Round(MauiProgram.player.areaCalc * 100, MauiProgram.roundingPrecision) + "%" });
+            labels.Add(new Label { Text = prefix + "Area: " + Math.Round(Globals.player.areaCalc * 100, Globals.roundingPrecision) + "%" });
 
         if (currobject.hpAdd != 0)
-            labels.Add(new Label { Text = prefix + " HP: " + MauiProgram.player.hp });
+            labels.Add(new Label { Text = prefix + "HP: " + Globals.player.hp });
 
         if (currobject.pierceAdd != 0)
-            labels.Add(new Label { Text = prefix + " Pierce: " + MauiProgram.player.pierce });
+            labels.Add(new Label { Text = prefix + "Pierce: " + Globals.player.pierce });
 
         if (currobject.bounceAdd != 0)
-            labels.Add(new Label { Text = prefix + " Bounce: " + MauiProgram.player.bounce });
+            labels.Add(new Label { Text = prefix + "Bounce: " + Globals.player.bounce });
+
+        if (currobject.resurrectAdd != 0)
+            labels.Add(new Label { Text = prefix + "Resurrect: " + Globals.player.resurrect });
     }
 
     private void OnButtonClicked(object sender, EventArgs args)
     {
-        MauiProgram.player.AddObject(currobject, true);
-        mainPage.objectViews.Remove(this);
-        foreach (UpgradeView view in mainPage.upgradeViews)
+        Globals.player.AddObject(currobject, true);
+        Globals.objectViews.Remove(this);
+        foreach (UpgradeView view in Globals.upgradeViews)
         {
             view.UpdateValues();
         }

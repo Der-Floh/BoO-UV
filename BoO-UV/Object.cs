@@ -14,7 +14,7 @@
             get
             {
                 if (attackMultiplicatorFromHP)
-                    return _attackMultiplicator * MauiProgram.player.hp + 1;
+                    return _attackMultiplicator * Globals.player.hp + 1;
                 else
                     return _attackMultiplicator;
             }
@@ -28,11 +28,14 @@
         public double attackSpeedMultiplicator { get; set; }
         public double critChanceBaseAdd { get; set; }
         public double critDamageBaseAdd { get; set; }
+        public double cooldownBaseAdd { get; set; }
+        public double cooldownMultiplicator { get; set; }
         public double areaBaseAdd { get; set; }
         public double areaMultiplicator { get; set; }
         public int pierceAdd { get; set; }
         public int bounceAdd { get; set; }
         public int hpAdd { get; set; }
+        public int resurrectAdd { get; set; }
         public bool hasEffect
         {
             get
@@ -63,8 +66,8 @@
 
         public void AddToObjectList()
         {
-            if (MauiProgram.objectList.Find(x => x.name == name) != null) return;
-            MauiProgram.objectList.Add(this);
+            if (Globals.objectList.Find(x => x.name == name) != null) return;
+            Globals.objectList.Add(this);
         }
 
         private void SetDefaultImagePaths()
