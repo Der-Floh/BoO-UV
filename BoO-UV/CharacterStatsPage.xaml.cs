@@ -51,8 +51,28 @@ public partial class CharacterStatsPage : ContentPage
     private void ResetButton_Clicked(object sender, EventArgs e)
     {
         Player newPlayer = new Player();
-        Globals.player = newPlayer;
+        Globals.player.attack = newPlayer.attack;
+        Globals.player.attackSpeed = newPlayer.attackSpeed;
+        Globals.player.critChance = newPlayer.critChance;
+        Globals.player.critDamage = newPlayer.critDamage;
+        Globals.player.hp = newPlayer.hp;
+        Globals.player.pierce = newPlayer.pierce;
+        Globals.player.bounce = newPlayer.bounce;
+        Globals.player.cooldown = newPlayer.cooldown;
+        Globals.player.area = newPlayer.area;
+        Globals.player.resurrect = newPlayer.resurrect;
+        Globals.player.objects.Clear();
+        Globals.objectViews.Clear();
+        Globals.RecalculatePossibleObjects();
+        Globals.CreateDefaultObjects();
+
         CharacterStatsPage_Appearing(this, new EventArgs());
+
+        Button button = (Button)sender;
+        Dispatcher.DispatchDelayed(TimeSpan.FromMilliseconds(50), () =>
+        {
+            VisualStateManager.GoToState(button, "Normal");
+        });
     }
 
     private void AttackEntry_TextChanged(object sender, TextChangedEventArgs e)

@@ -57,6 +57,23 @@
             <Label x:Name="HPLabel" Text="HP"/>
             <Entry x:Name="HPEntry" Keyboard="Numeric"/>
         </VerticalStackLayout>
-        <Button x:Name="ResetButton" Text="Reset" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <Button x:Name="ResetButton" Text="Reset" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="1"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="0.9"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+        </Button>
     </Grid>
 </ContentPage>

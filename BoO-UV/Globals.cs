@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace BoO_UV
         public static List<ObjectView> objectViews { get; set; } = new List<ObjectView>();
         public static List<UpgradeType> wantedUpgrades { get; set; } = new List<UpgradeType>();
         public static List<Object> possibleObjects { get; set; } = new List<Object>();
+        public static EmbedView EmbedView { get; set; }
         public static Player player { get; set; } = new Player();
 
         public static int roundingPrecision { get; set; } = 2;
@@ -20,6 +22,19 @@ namespace BoO_UV
         public static string currText { get; set; } = "Curr ";
         public static string newText { get; set; } = "New ";
         public static string dpsText { get; set; } = "DpS when taken: ";
+
+        public static void Init(EmbedView _EmbedView)
+        {
+            EmbedView = _EmbedView;
+        }
+
+        public static void CreateDefaultObjects()
+        {
+            foreach (Object currobject in possibleObjects)
+            {
+                objectViews.Add(new ObjectView(currobject, EmbedView));
+            }
+        }
 
         public static void CreateCurrentExistingObjects()
         {
@@ -103,6 +118,17 @@ namespace BoO_UV
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             directoryInfo.Delete(true);
             CreateCurrentExistingObjects();
+        }
+
+        public static void RecalculatePossibleObjects()
+        {
+            possibleObjects.Clear();
+            foreach (Object currObject in objectList)
+            {
+                if (currObject.hasEffect && !player.objects.Contains(currObject))
+                    possibleObjects.Add(currObject);
+            }
+            possibleObjects = possibleObjects.OrderBy(x => x.rarity).ToList();
         }
     }
 }

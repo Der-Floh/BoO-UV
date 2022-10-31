@@ -24,6 +24,23 @@
         <Label x:Name="upgradeStats" Grid.Row="2"/>
         <Label x:Name="dps" Grid.Row="3"/>
         <Slider x:Name="slider" ValueChanged="OnSliderValueChanged" DragCompleted="OnSliderDragCompleted" Grid.Row="4"/>
-        <Button x:Name="takeUpgradeButton" Clicked="OnButtonClicked" Text="Take" Grid.Row="5"/>
+        <Button x:Name="takeUpgradeButton" Clicked="OnButtonClicked" Text="Take" Grid.Row="5">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="1"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="0.8"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+        </Button>
     </Grid>
 </ContentView>

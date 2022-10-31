@@ -92,6 +92,11 @@ public partial class UpgradeView : ContentView
     private void OnButtonClicked(object sender, EventArgs args)
     {
         Globals.player.AddUpgrade(upgrade, true);
+        Button button = (Button)sender;
+        Dispatcher.DispatchDelayed(TimeSpan.FromMilliseconds(50), () =>
+        {
+            VisualStateManager.GoToState(button, "Normal");
+        });
     }
 
     private void OnPlayerGetUpgrade(object sender, UpgradeEventArgs args)
