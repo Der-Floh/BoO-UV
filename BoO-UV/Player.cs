@@ -20,6 +20,7 @@ namespace BoO_UV
                 return attackTemp;
             }
         }
+        public int projectileCount { get; set; }
         public double attackSpeed { get; set; }
         public double attackSpeedCalc
         {
@@ -55,7 +56,7 @@ namespace BoO_UV
         public int resurrect { get; set; }
         public List<Object> objects { get; set; } = new List<Object>();
 
-        public Player(int attack = 40, double attackSpeed = 1.5, double critChance = 0.05, double critDamage = 2, int hp = 3, int pierce = 0, int bounce = 0, double cooldown = 1, double area = 1, int resurrect = 0)
+        public Player(int attack = 40, double attackSpeed = 1.5, double critChance = 0.05, double critDamage = 2, int hp = 3, int pierce = 0, int bounce = 0, double cooldown = 1, double area = 1, int resurrect = 0, int projectileCount = 1)
         {
             this.attack = attack;
             this.attackSpeed = attackSpeed;
@@ -67,6 +68,7 @@ namespace BoO_UV
             this.cooldown = cooldown;
             this.area = area;
             this.resurrect = resurrect;
+            this.projectileCount = projectileCount;
         }
 
         public void AddUpgrade(Upgrade upgrade, bool throwGetEvent = false)
@@ -194,6 +196,7 @@ namespace BoO_UV
         public void AddObject(Object currobject, bool throwGetEvent = false)
         {
             attack += currobject.attackBaseAdd;
+            projectileCount += currobject.projectileAdd;
             attackSpeed += currobject.attackSpeedBaseAdd;
             critChance += currobject.critChanceBaseAdd;
             critDamage += currobject.critDamageBaseAdd;
@@ -208,6 +211,7 @@ namespace BoO_UV
         public void RemoveObject(Object currobject)
         {
             attack -= currobject.attackBaseAdd;
+            projectileCount -= currobject.projectileAdd;
             attackSpeed -= currobject.attackSpeedBaseAdd;
             critChance -= currobject.critChanceBaseAdd;
             critDamage -= currobject.critDamageBaseAdd;
@@ -228,6 +232,8 @@ namespace BoO_UV
             double dpsCrit = dps * critDamage;
 
             dps = dps * (1 - critChance) + dpsCrit * critChance;
+
+            dps *= projectileCount;
 
             if (currupgrade != null) RemoveUpgrade(currupgrade);
             if (currobject != null) RemoveObject(currobject);

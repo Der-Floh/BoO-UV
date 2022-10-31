@@ -24,6 +24,7 @@
             }
         }
         private double _attackMultiplicator;
+        public int projectileAdd { get; set; }
         public double attackSpeedBaseAdd { get; set; }
         public double attackSpeedMultiplicator { get; set; }
         public double critChanceBaseAdd { get; set; }

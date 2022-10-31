@@ -76,7 +76,7 @@ namespace BoO_UV
             new Object("ninja_headband", 0);
             new Object("nitro_crit", 3);
             new Object("nitro_suit", 0);
-            new Object("no_scope", 2) { attackMultiplicator = 2, };
+            new Object("no_scope", 2) { projectileAdd = 1, };
             new Object("onion", 2);
             new Object("parting_gift", 1);
             new Object("pong", 3);
@@ -85,7 +85,7 @@ namespace BoO_UV
             new Object("sherifken", 3);
             new Object("shield", 2);
             new Object("shockwave", 0);
-            new Object("shoot_it_thrice", 3) { attackMultiplicator = 3, attackSpeedMultiplicator = 0.8, };
+            new Object("shoot_it_thrice", 3) { projectileAdd = 2, attackSpeedMultiplicator = 0.8, };
             new Object("silver_loaded_die", 2);
             new Object("soothing_dash", 1);
             new Object("spread_shot", 3);

@@ -52,6 +52,7 @@ public partial class CharacterStatsPage : ContentPage
     {
         Player newPlayer = new Player();
         Globals.player.attack = newPlayer.attack;
+        Globals.player.projectileCount = 1;
         Globals.player.attackSpeed = newPlayer.attackSpeed;
         Globals.player.critChance = newPlayer.critChance;
         Globals.player.critDamage = newPlayer.critDamage;
