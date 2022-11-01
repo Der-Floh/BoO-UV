@@ -21,6 +21,7 @@ namespace BoO_UV
         dash,
         choice,
         resurrect,
+        moveSpeed,
     }
     public sealed class Upgrade
     {
@@ -54,17 +55,18 @@ namespace BoO_UV
             {
                 switch(type)
                 {
+                    default: return 0;
                     case UpgradeType.critDamage: return 1;
                     case UpgradeType.hp: return 1;
                     case UpgradeType.area: return 1;
-                    case UpgradeType.cooldown: return 2;
+                    case UpgradeType.cooldown: return 1;
                     case UpgradeType.pierce: return 3;
                     case UpgradeType.bounce: return 3;
                     case UpgradeType.dash: return 1;
                     case UpgradeType.choice: return 3;
                     case UpgradeType.resurrect: return 3;
+                    case UpgradeType.moveSpeed: return 1;
                 }
-                return 0;
             }
         }
         public byte rarityMax
@@ -73,12 +75,14 @@ namespace BoO_UV
             {
                 switch (type)
                 {
+                    default : return 3;
                     case UpgradeType.critChance: return 1;
                     case UpgradeType.critDamage: return 2;
                     case UpgradeType.hp: return 2;
                     case UpgradeType.dash: return 2;
+                    case UpgradeType.cooldown: return 2;
+                    case UpgradeType.moveSpeed: return 1;
                 }
-                return 3;
             }
         }
         public string image

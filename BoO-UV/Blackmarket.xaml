@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BoO_UV.Blackmarket"
+             xmlns:local="clr-namespace:BoO_UV"
+             Title="Blackmarket">
+    
+    <Grid x:Name="BackgroundGrid">
+        <Image x:Name="BackgroundImage" Source="blackmarket_bg.png" Grid.Row="0" Grid.Column="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Aspect="AspectFill"/>
+        <Grid x:Name="RogerGrid" Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.8*"/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="RogerImage" Source="blackmarket_roger.png" Grid.Row="0" Grid.Column="0" VerticalOptions="End" HorizontalOptions="StartAndExpand"/>
+        </Grid>
+        <Grid x:Name="RogerDialogueGrid" Grid.Row="0" Grid.Column="0" Margin="5,20,5,200">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2.7*"/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="RogerDialogueImage" Source="blackmarket_roger_dialogue.png" Grid.Row="0" Grid.Column="0" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Aspect="Fill"/>
+            <Label x:Name="RogerDialogueLabel" Grid.Row="0" Grid.Column="0" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="5"/>
+        </Grid>
+        <Grid x:Name="MarketGrid" Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="MarketImage" Source="blackmarket_metaholder.png" Grid.Row="1" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" Aspect="Fill"/>
+            <Grid x:Name="MarketContentGrid" Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.7*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1.2*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border x:Name="MarketContentFrame" Grid.Row="1" Grid.Column="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" Stroke="#3e0c18" StrokeThickness="3">
+                    <ScrollView x:Name="MarketContentScrollView" Margin="20,10,10,20">
+                        <Grid x:Name="MarketContentUpgradesGrid" MaximumHeightRequest="500">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <local:BlackmarketContentView x:Name="MarketContent1" typeText="RIDGED BARREL" amountAdd="1" maxAmount="1" cost="20" Grid.Row="0" HorizontalOptions="Start"/>
+                            <local:BlackmarketContentView x:Name="MarketContent2" typeText="MODIFIED TRIGGER" amountAdd="1" maxAmount="1" cost="20" Grid.Row="1" HorizontalOptions="Start"/>
+                            <local:BlackmarketContentView x:Name="MarketContent3" typeText="SPRING LOADED SOLES" amountAdd="1" maxAmount="1" cost="30" Grid.Row="2" HorizontalOptions="Start"/>
+                            <local:BlackmarketContentView x:Name="MarketContent4" typeText="METAL PLATE" amountAdd="1" maxAmount="1" cost="30" Grid.Row="3" HorizontalOptions="Start"/>
+                            <local:BlackmarketContentView x:Name="MarketContent5" typeText="AIR BOOTS" amountAdd="2" maxAmount="5" isPercent="true" cost="1" Grid.Row="4" HorizontalOptions="Start"/>
+                            <local:BlackmarketContentView x:Name="MarketContent6" typeText="COUNTERFEIT WRISTWATCH" amountAdd="2" maxAmount="5" isPercent="true" cost="1" Grid.Row="5" HorizontalOptions="Start"/>
+                            <local:BlackmarketContentView x:Name="MarketContent7" typeText="AMPLIFIER" amountAdd="2" maxAmount="5" isPercent="true" cost="1" Grid.Row="6" HorizontalOptions="Start"/>
+                            <local:BlackmarketContentView x:Name="MarketContent8" typeText="BROKEN MAGNET" amountAdd="2" maxAmount="5" isPercent="true" cost="1" Grid.Row="7" HorizontalOptions="Start"/>
+                            <local:BlackmarketContentView x:Name="MarketContent9" typeText="LUCKY STAR" amountAdd="10" maxAmount="5" isPercent="true" cost="5" Grid.Row="8" HorizontalOptions="Start"/>
+                            <local:BlackmarketContentView x:Name="MarketContent10" typeText="FOUR LEAF CLOVER" amountAdd="10" maxAmount="5" isPercent="true" cost="5" Grid.Row="9" HorizontalOptions="Start"/>
+                            <local:BlackmarketContentView x:Name="MarketContent11" typeText="LOADED DIE" amountAdd="1" maxAmount="2" cost="10" Grid.Row="10" HorizontalOptions="Start"/>
+                            <local:BlackmarketContentView x:Name="MarketContent12" typeText="FATED DIE" amountAdd="1" maxAmount="2" cost="10" Grid.Row="11" HorizontalOptions="Start"/>
+                        </Grid>
+                    </ScrollView>
+                </Border>
+            </Grid>
+        </Grid>
+        <Grid x:Name="SignsGrid" Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="SignImage" Source="blackmarket_namesign.png" Grid.Row="0" Grid.Column="1" VerticalOptions="StartAndExpand" HorizontalOptions="Center"/>
+            <Image x:Name="BackButtonImage" Source="button_unlit.png" Grid.Row="2" Grid.Column="1" VerticalOptions="End" HorizontalOptions="Center" IsVisible="false"/>
+        </Grid>
+    </Grid>
+</ContentPage>

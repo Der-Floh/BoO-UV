@@ -15,17 +15,48 @@ namespace BoO_UV
         public static List<UpgradeType> wantedUpgrades { get; set; } = new List<UpgradeType>();
         public static List<Object> possibleObjects { get; set; } = new List<Object>();
         public static EmbedView EmbedView { get; set; }
+        public static StackGrid UpgradeGrid { get; set; }
         public static Player player { get; set; } = new Player();
 
         public static int roundingPrecision { get; set; } = 2;
-        public static int upgradeAmount { get; set; } = 5;
+        public static int columnAmount { get; set; } = 5;
+        public static int rowAmount { get; set; } = 2;
         public static string currText { get; set; } = "Curr ";
         public static string newText { get; set; } = "New ";
         public static string dpsText { get; set; } = "DpS when taken: ";
 
-        public static void Init(EmbedView _EmbedView)
+        public static void Init(EmbedView _EmbedView, StackGrid _UpgradeGrid)
         {
             EmbedView = _EmbedView;
+            UpgradeGrid = _UpgradeGrid;
+
+            wantedUpgrades.Add(UpgradeType.damage);
+            wantedUpgrades.Add(UpgradeType.attackSpeed);
+            wantedUpgrades.Add(UpgradeType.critChance);
+            wantedUpgrades.Add(UpgradeType.critDamage);
+            wantedUpgrades.Add(UpgradeType.hp);
+        }
+
+        public static void CreateDefaultUpgrades()
+        {
+            /*
+            for (int i = 0; i < 5; i++)
+            {
+                Upgrade upgrade = new Upgrade { type = (UpgradeType)i };
+                Globals.upgradeViews.Add(new UpgradeView(upgrade));
+                UpgradeGrid.Rebuild(Globals.upgradeViews[i]);
+            }*/
+            int i = 0;
+            foreach (UpgradeType upgradeType in (UpgradeType[])Enum.GetValues(typeof(UpgradeType)))
+            {
+                if (wantedUpgrades.Contains(upgradeType))
+                {
+                    Upgrade upgrade = new Upgrade { type = upgradeType };
+                    upgradeViews.Add(new UpgradeView(upgrade));
+                    UpgradeGrid.Rebuild(upgradeViews[i]);
+                    i++;
+                }
+            }
         }
 
         public static void CreateDefaultObjects()
@@ -40,7 +71,6 @@ namespace BoO_UV
         {
             JsonHandler jsonHandler = new JsonHandler();
             string path = Path.Combine(jsonHandler.directorypath, jsonHandler.directoryname, jsonHandler.libdirectoryname, jsonHandler.objectdirectoryname);
-            string pathDirect = "C:/Users/Florian/AppData/Local/Packages/347CF3BF-B359-4FEF-8327-CAA1A9F831CC_pctxdz6jfny8t/LocalState/BoO-UV";
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             try
             {
@@ -108,7 +138,7 @@ namespace BoO_UV
                 if (currObject.hasEffect)
                     possibleObjects.Add(currObject);
             }
-            possibleObjects = possibleObjects.OrderBy(x => x.rarity).ToList();
+            possibleObjects = possibleObjects.OrderBy(x => x.rarity).ThenBy(x => x.name).ToList();
         }
         public static void ResetObjects()
         {
@@ -128,7 +158,10 @@ namespace BoO_UV
                 if (currObject.hasEffect && !player.objects.Contains(currObject))
                     possibleObjects.Add(currObject);
             }
-            possibleObjects = possibleObjects.OrderBy(x => x.rarity).ToList();
+            possibleObjects = possibleObjects.OrderBy(x => x.rarity).ThenBy(x => x.name).ToList();
+
+            objectViews.Clear();
+            CreateDefaultObjects();
         }
     }
 }

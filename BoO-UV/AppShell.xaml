@@ -16,6 +16,11 @@
             <ShellContent ContentTemplate="{DataTemplate local:CharacterStatsPage}" />
         </Tab>
     </FlyoutItem>
+    <FlyoutItem Title="Blackmarket">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate local:Blackmarket}" />
+        </Tab>
+    </FlyoutItem>
     <FlyoutItem Title="Settings">
         <Tab>
             <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" />

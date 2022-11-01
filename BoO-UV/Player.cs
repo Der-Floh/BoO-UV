@@ -54,6 +54,7 @@ namespace BoO_UV
             }
         }
         public int resurrect { get; set; }
+        public double moveSpeed { get; set; }
         public List<Object> objects { get; set; } = new List<Object>();
 
         public Player(int attack = 40, double attackSpeed = 1.5, double critChance = 0.05, double critDamage = 2, int hp = 3, int pierce = 0, int bounce = 0, double cooldown = 1, double area = 1, int resurrect = 0, int projectileCount = 1)
@@ -80,6 +81,12 @@ namespace BoO_UV
                 case UpgradeType.critChance: AddCritChanceUpgrade(upgrade.rarity, true); break;
                 case UpgradeType.critDamage: AddCritDamageUpgrade(upgrade.rarity, true); break;
                 case UpgradeType.hp: AddHPUpgrade(upgrade.rarity, true); break;
+                case UpgradeType.cooldown: AddCooldownUpgrade(upgrade.rarity, true); break;
+                case UpgradeType.area: AddAreaUpgrade(upgrade.rarity, true); break;
+                case UpgradeType.pierce: AddPierceUpgrade(upgrade.rarity, true); break;
+                case UpgradeType.bounce: AddBounceUpgrade(upgrade.rarity, true); break;
+                case UpgradeType.resurrect: AddResurrectUpgrade(upgrade.rarity, true); break;
+                case UpgradeType.moveSpeed: AddMoveSpeedUpgrade(upgrade.rarity, true); break;
             }
             if (throwGetEvent)
                 onGetUpgrade(this, new UpgradeEventArgs(upgrade));
@@ -93,6 +100,12 @@ namespace BoO_UV
                 case UpgradeType.critChance: AddCritChanceUpgrade(upgrade.rarity, false); break;
                 case UpgradeType.critDamage: AddCritDamageUpgrade(upgrade.rarity, false); break;
                 case UpgradeType.hp: AddHPUpgrade(upgrade.rarity, false); break;
+                case UpgradeType.cooldown: AddCooldownUpgrade(upgrade.rarity, false); break;
+                case UpgradeType.area: AddAreaUpgrade(upgrade.rarity, false); break;
+                case UpgradeType.pierce: AddPierceUpgrade(upgrade.rarity, false); break;
+                case UpgradeType.bounce: AddBounceUpgrade(upgrade.rarity, false); break;
+                case UpgradeType.resurrect: AddResurrectUpgrade(upgrade.rarity, false); break;
+                case UpgradeType.moveSpeed: AddMoveSpeedUpgrade(upgrade.rarity, false); break;
             }
         }
         public double GetUpgrade(Upgrade upgrade)
@@ -104,6 +117,12 @@ namespace BoO_UV
                 case UpgradeType.critChance: return GetCritChanceUpgrade(upgrade.rarity);
                 case UpgradeType.critDamage: return GetCritDamageUpgrade(upgrade.rarity);
                 case UpgradeType.hp: return GetHPUpgrade(upgrade.rarity);
+                case UpgradeType.cooldown: return GetCooldownUpgrade(upgrade.rarity);
+                case UpgradeType.area: return GetAreaUpgrade(upgrade.rarity);
+                case UpgradeType.pierce: return GetPierceUpgrade(upgrade.rarity);
+                case UpgradeType.bounce: return GetBounceUpgrade(upgrade.rarity);
+                case UpgradeType.resurrect: return GetResurrectUpgrade(upgrade.rarity);
+                case UpgradeType.moveSpeed: return GetMoveSpeedUpgrade(upgrade.rarity);
             }
             return 0;
         }
@@ -189,6 +208,99 @@ namespace BoO_UV
             {
                 case 1: return 1;
                 case 2: return 2;
+            }
+            return 0;
+        }
+        private void AddPierceUpgrade(byte rarity, bool add)
+        {
+            if (add)
+                pierce += GetPierceUpgrade(rarity);
+            else
+                pierce -= GetPierceUpgrade(rarity);
+        }
+        private int GetPierceUpgrade(byte rarity)
+        {
+            switch (rarity)
+            {
+                case 3: return 1;
+            }
+            return 0;
+        }
+        private void AddBounceUpgrade(byte rarity, bool add)
+        {
+            if (add)
+                bounce += GetBounceUpgrade(rarity);
+            else
+                bounce -= GetBounceUpgrade(rarity);
+        }
+        private int GetBounceUpgrade(byte rarity)
+        {
+            switch (rarity)
+            {
+                case 3: return 1;
+            }
+            return 0;
+        }
+        private void AddCooldownUpgrade(byte rarity, bool add)
+        {
+            if (add)
+                cooldown *= 1.0 - GetCooldownUpgrade(rarity);
+            else
+                cooldown /= 1.0 - GetCooldownUpgrade(rarity);
+        }
+        private double GetCooldownUpgrade(byte rarity)
+        {
+            switch (rarity)
+            {
+                case 1: return 0.1;
+                case 2: return 0.15;
+            }
+            return 0;
+        }
+        private void AddAreaUpgrade(byte rarity, bool add)
+        {
+            if (add)
+                area += GetAreaUpgrade(rarity);
+            else
+                area -= GetAreaUpgrade(rarity);
+        }
+        private double GetAreaUpgrade(byte rarity)
+        {
+            switch (rarity)
+            {
+                case 1: return 0.2;
+                case 2: return 0.3;
+                case 3: return 0.4;
+            }
+            return 0;
+        }
+        private void AddResurrectUpgrade(byte rarity, bool add)
+        {
+            if (add)
+                resurrect += GetResurrectUpgrade(rarity);
+            else
+                resurrect -= GetResurrectUpgrade(rarity);
+        }
+        private int GetResurrectUpgrade(byte rarity)
+        {
+            switch (rarity)
+            {
+                case 3: return 1;
+            }
+            return 0;
+        }
+        private void AddMoveSpeedUpgrade(byte rarity, bool add)
+        {
+            if (add)
+                moveSpeed += GetMoveSpeedUpgrade(rarity);
+            else
+                moveSpeed -= GetMoveSpeedUpgrade(rarity);
+        }
+        private double GetMoveSpeedUpgrade(byte rarity)
+        {
+            switch (rarity)
+            {
+                case 1: return 0.5;
             }
             return 0;
         }

@@ -4,8 +4,6 @@ namespace BoO_UV;
 
 public partial class StackGrid : ContentView
 {
-    //public int amount { get; set; }
-
     private double _newHeight;
     public double newHeight
     {
@@ -65,7 +63,7 @@ public partial class StackGrid : ContentView
         int i = 0;
         int j = 0;
         stackGrid.AddRowDefinition(new RowDefinition(newHeight));
-        for (i = 0; i < Globals.upgradeAmount; i++)
+        for (i = 0; i < Globals.columnAmount; i++)
         {
             stackGrid.AddColumnDefinition(new ColumnDefinition(GridLength.Star));
         }
@@ -74,7 +72,7 @@ public partial class StackGrid : ContentView
         {
             stackGrid.Add(currview, i, j);
             i++;
-            if (i >= Globals.upgradeAmount)
+            if (i >= Globals.columnAmount)
             {
                 j++;
                 i = 0;

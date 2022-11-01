@@ -13,12 +13,12 @@ public partial class SettingsPage : ContentPage
 
     private void SettingsPage_Appearing(object sender, EventArgs e)
     {
-        UpgradeAmountEntry.Text = Globals.upgradeAmount.ToString();
+        UpgradeAmountEntry.Text = Globals.columnAmount.ToString();
     }
 
     private void SettingsPage_Disappearing(object sender, EventArgs e)
     {
-        Globals.upgradeAmount = int.Parse(UpgradeAmountEntry.Text);
+        Globals.columnAmount = int.Parse(UpgradeAmountEntry.Text);
     }
 
     private void SaveLocationButton_Clicked(object sender, EventArgs e)
@@ -37,7 +37,7 @@ public partial class SettingsPage : ContentPage
     }
     private void ResetObjectsButton_Clicked(object sender, EventArgs e)
     {
-        DisplayAlert("Not Implemented", "Currently not implemented", "OK");
+        Globals.ResetObjects();
     }
 
     private void UpgradeAmountEntry_TextChanged(object sender, TextChangedEventArgs e)

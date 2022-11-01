@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BoO_UV.BlackmarketContentView">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="ContentTypeLabel" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center"/>
+        <Label x:Name="ContentAmountLabel" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <ImageButton x:Name="ContentRemoveButton" Grid.Column="2" BackgroundColor="Transparent" Source="blackmarket_minusbuttonunlit.png" Clicked="ContentRemoveButton_Clicked" HorizontalOptions="End" VerticalOptions="Center">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="Source" Value="blackmarket_minusbuttonunlit.png"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Source" Value="blackmarket_minusbuttonlitclicked.png"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+        </ImageButton>
+        <ImageButton x:Name="ContentAddButton" Grid.Column="3" BackgroundColor="Transparent" Source="blackmarket_plusbuttonunlit.png" Clicked="ContentAddButton_Clicked" HorizontalOptions="Start" VerticalOptions="Center">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="Source" Value="blackmarket_plusbuttonunlit.png"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Source" Value="blackmarket_plusbuttonlitclicked.png"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+        </ImageButton>
+    </Grid>
+</ContentView>

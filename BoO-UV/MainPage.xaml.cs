@@ -7,14 +7,9 @@ public partial class MainPage : ContentPage
     public MainPage()
     {
         InitializeComponent();
-        Globals.Init(EmbedView);
-        Globals.wantedUpgrades.Add(UpgradeType.damage);
-        Globals.wantedUpgrades.Add(UpgradeType.attackSpeed);
-        Globals.wantedUpgrades.Add(UpgradeType.critChance);
-        Globals.wantedUpgrades.Add(UpgradeType.critDamage);
-        Globals.wantedUpgrades.Add(UpgradeType.hp);
+        Globals.Init(EmbedView, UpgradeGrid);
         Globals.CreateCurrentExistingObjects();
-        CreateDefaultUpgrades();
+        Globals.CreateDefaultUpgrades();
         Globals.CreateDefaultObjects();
         Appearing += MainPage_Appearing;
         UpgradeGrid.Bind(this);
@@ -26,28 +21,6 @@ public partial class MainPage : ContentPage
         foreach (UpgradeView view in Globals.upgradeViews)
         {
             view.UpdateValues();
-        }
-    }
-
-    public void CreateDefaultUpgrades()
-    {
-        /*
-        for (int i = 0; i < 5; i++)
-        {
-            Upgrade upgrade = new Upgrade { type = (UpgradeType)i };
-            Globals.upgradeViews.Add(new UpgradeView(upgrade));
-            UpgradeGrid.Rebuild(Globals.upgradeViews[i]);
-        }*/
-        int i = 0;
-        foreach (UpgradeType upgradeType in (UpgradeType[]) Enum.GetValues(typeof(UpgradeType)))
-        {
-            if (Globals.wantedUpgrades.Contains(upgradeType))
-            {
-                Upgrade upgrade = new Upgrade { type = upgradeType };
-                Globals.upgradeViews.Add(new UpgradeView(upgrade));
-                UpgradeGrid.Rebuild(Globals.upgradeViews[i]);
-                i++;
-            }
         }
     }
 
