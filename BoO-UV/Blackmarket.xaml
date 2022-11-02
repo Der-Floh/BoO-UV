@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BoO_UV.Blackmarket"
              xmlns:local="clr-namespace:BoO_UV"
+             Shell.NavBarIsVisible="False"
              Title="Blackmarket">
     
     <Grid x:Name="BackgroundGrid">
@@ -68,18 +69,6 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <local:BlackmarketContentView x:Name="MarketContent1" typeText="RIDGED BARREL" amountAdd="1" maxAmount="1" cost="20" Grid.Row="0" HorizontalOptions="Start"/>
-                            <local:BlackmarketContentView x:Name="MarketContent2" typeText="MODIFIED TRIGGER" amountAdd="1" maxAmount="1" cost="20" Grid.Row="1" HorizontalOptions="Start"/>
-                            <local:BlackmarketContentView x:Name="MarketContent3" typeText="SPRING LOADED SOLES" amountAdd="1" maxAmount="1" cost="30" Grid.Row="2" HorizontalOptions="Start"/>
-                            <local:BlackmarketContentView x:Name="MarketContent4" typeText="METAL PLATE" amountAdd="1" maxAmount="1" cost="30" Grid.Row="3" HorizontalOptions="Start"/>
-                            <local:BlackmarketContentView x:Name="MarketContent5" typeText="AIR BOOTS" amountAdd="2" maxAmount="5" isPercent="true" cost="1" Grid.Row="4" HorizontalOptions="Start"/>
-                            <local:BlackmarketContentView x:Name="MarketContent6" typeText="COUNTERFEIT WRISTWATCH" amountAdd="2" maxAmount="5" isPercent="true" cost="1" Grid.Row="5" HorizontalOptions="Start"/>
-                            <local:BlackmarketContentView x:Name="MarketContent7" typeText="AMPLIFIER" amountAdd="2" maxAmount="5" isPercent="true" cost="1" Grid.Row="6" HorizontalOptions="Start"/>
-                            <local:BlackmarketContentView x:Name="MarketContent8" typeText="BROKEN MAGNET" amountAdd="2" maxAmount="5" isPercent="true" cost="1" Grid.Row="7" HorizontalOptions="Start"/>
-                            <local:BlackmarketContentView x:Name="MarketContent9" typeText="LUCKY STAR" amountAdd="10" maxAmount="5" isPercent="true" cost="5" Grid.Row="8" HorizontalOptions="Start"/>
-                            <local:BlackmarketContentView x:Name="MarketContent10" typeText="FOUR LEAF CLOVER" amountAdd="10" maxAmount="5" isPercent="true" cost="5" Grid.Row="9" HorizontalOptions="Start"/>
-                            <local:BlackmarketContentView x:Name="MarketContent11" typeText="LOADED DIE" amountAdd="1" maxAmount="2" cost="10" Grid.Row="10" HorizontalOptions="Start"/>
-                            <local:BlackmarketContentView x:Name="MarketContent12" typeText="FATED DIE" amountAdd="1" maxAmount="2" cost="10" Grid.Row="11" HorizontalOptions="Start"/>
                         </Grid>
                     </ScrollView>
                 </Border>

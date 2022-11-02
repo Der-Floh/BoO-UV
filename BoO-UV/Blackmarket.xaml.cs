@@ -12,6 +12,13 @@ public partial class Blackmarket : ContentPage
         {
             CornerRadius = new CornerRadius(10, 10, 10, 10)
         };
+
+        int i = 0;
+        foreach (BlackmarketContentView contentView in Globals.blackmarketContents)
+        {
+            MarketContentUpgradesGrid.Add(contentView, 0, i);
+            i++;
+        }
     }
 
     private void Blackmarket_Disappearing(object sender, EventArgs e)

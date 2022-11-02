@@ -14,6 +14,7 @@ namespace BoO_UV
         public static List<ObjectView> objectViews { get; set; } = new List<ObjectView>();
         public static List<UpgradeType> wantedUpgrades { get; set; } = new List<UpgradeType>();
         public static List<Object> possibleObjects { get; set; } = new List<Object>();
+        public static List<BlackmarketContentView> blackmarketContents { get; set; } = new List<BlackmarketContentView>();
         public static EmbedView EmbedView { get; set; }
         public static StackGrid UpgradeGrid { get; set; }
         public static Player player { get; set; } = new Player();
@@ -35,6 +36,23 @@ namespace BoO_UV
             wantedUpgrades.Add(UpgradeType.critChance);
             wantedUpgrades.Add(UpgradeType.critDamage);
             wantedUpgrades.Add(UpgradeType.hp);
+
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "RIDGED BARREL", amountAdd = 1, maxAmount = 1, cost = 20 });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "MODIFIED TRIGGER", amountAdd = 1, maxAmount = 1, cost = 20 });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "SPRING LOADED SOLES", amountAdd = 1, maxAmount = 1, cost = 30 });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "METAL PLATE", amountAdd = 1, maxAmount = 1, cost = 30 });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "AIR BOOTS", amountAdd = 2, maxAmount = 5, cost = 1, isPercent = true });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "COUNTERFEIT WRISTWATCH", amountAdd = 2, maxAmount = 5, cost = 1, isPercent = true });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "AMPLIFIER", amountAdd = 2, maxAmount = 5, cost = 1, isPercent = true });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "BROKEN MAGNET", amountAdd = 2, maxAmount = 5, cost = 1, isPercent = true });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "LUCKY STAR", amountAdd = 10, maxAmount = 5, cost = 5, isPercent = true });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "FOUR LEAF CLOVER", amountAdd = 10, maxAmount = 5, cost = 5, isPercent = true });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "LOADED DIE", amountAdd = 1, maxAmount = 2, cost = 10 });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "FATED DIE", amountAdd = 1, maxAmount = 2, cost = 10 });
+
+            CreateCurrentExistingObjects();
+            CreateDefaultUpgrades();
+            CreateDefaultObjects();
         }
 
         public static void CreateDefaultUpgrades()

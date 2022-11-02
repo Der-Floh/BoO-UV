@@ -8,9 +8,6 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         Globals.Init(EmbedView, UpgradeGrid);
-        Globals.CreateCurrentExistingObjects();
-        Globals.CreateDefaultUpgrades();
-        Globals.CreateDefaultObjects();
         Appearing += MainPage_Appearing;
         UpgradeGrid.Bind(this);
         ObjectStackGrid.Bind(EmbedView);
