@@ -29,6 +29,7 @@
                 </VisualStateGroupList>
             </VisualStateManager.VisualStateGroups>
         </ImageButton>
+        <Image x:Name="ContentRemoveDisableImage" Grid.Column="2" Source="blackmarket_maxedoutbuttonmask.png" HorizontalOptions="End" VerticalOptions="Center"/>
         <ImageButton x:Name="ContentAddButton" Grid.Column="3" BackgroundColor="Transparent" Source="blackmarket_plusbuttonunlit.png" Clicked="ContentAddButton_Clicked" HorizontalOptions="Start" VerticalOptions="Center">
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroupList>
@@ -47,5 +48,6 @@
                 </VisualStateGroupList>
             </VisualStateManager.VisualStateGroups>
         </ImageButton>
+        <Image x:Name="ContentAddDisableImage" Grid.Column="3" Source="blackmarket_maxedoutbuttonmask.png" IsVisible="false" HorizontalOptions="Start" VerticalOptions="Center"/>
     </Grid>
 </ContentView>

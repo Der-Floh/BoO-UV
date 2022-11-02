@@ -23,11 +23,21 @@ public partial class BlackmarketContentView : ContentView
             int add = value - _amount;
             if (_amount == maxAmount && add > 0) return;
             if (_amount == 0 && add < 0) return;
+
             _amount = value;
             if (add < 0)
                 this.value -= amountAdd;
             else
                 this.value += amountAdd;
+
+            if (_amount == maxAmount)
+                ContentAddDisableImage.IsVisible = true;
+            else
+                ContentAddDisableImage.IsVisible = false;
+            if (_amount == 0)
+                ContentRemoveDisableImage.IsVisible = true;
+            else
+                ContentRemoveDisableImage.IsVisible = false;
         }
     }
     private int _amount;
