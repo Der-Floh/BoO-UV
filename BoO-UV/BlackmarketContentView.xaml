@@ -9,6 +9,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <GraphicsView x:Name="ContentGraphicsView" Grid.Column="0" Grid.ColumnSpan="4"/>
         <Label x:Name="ContentTypeLabel" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center"/>
         <Label x:Name="ContentAmountLabel" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
         <ImageButton x:Name="ContentRemoveButton" Grid.Column="2" BackgroundColor="Transparent" Source="blackmarket_minusbuttonunlit.png" Clicked="ContentRemoveButton_Clicked" HorizontalOptions="End" VerticalOptions="Center">

@@ -28,7 +28,7 @@
                 <ColumnDefinition Width="2.7*"/>
             </Grid.ColumnDefinitions>
             <Image x:Name="RogerDialogueImage" Source="blackmarket_roger_dialogue.png" Grid.Row="0" Grid.Column="0" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Aspect="Fill"/>
-            <Label x:Name="RogerDialogueLabel" Grid.Row="0" Grid.Column="0" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Margin="5"/>
+            <Label x:Name="RogerDialogueLabel" Grid.Row="0" Grid.Column="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="30,10,30,50" FontSize="Small"/>
         </Grid>
         <Grid x:Name="MarketGrid" Grid.Row="0" Grid.Column="0">
             <Grid.RowDefinitions>

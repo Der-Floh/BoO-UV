@@ -68,13 +68,17 @@ public partial class BlackmarketContentView : ContentView
         }
     }
     private bool _ispercent;
+    public string description { get; set; }
+    public GraphicsView graphicsView { get; set; }
+    public UpgradeType upgradeType { get; set; }
     public BlackmarketContentView()
 	{
 		InitializeComponent();
+        graphicsView = ContentGraphicsView;
         ContentAmountLabel.Text = value.ToString();
 	}
 
-	private void ContentRemoveButton_Clicked(object sender, EventArgs e)
+    private void ContentRemoveButton_Clicked(object sender, EventArgs e)
 	{
         amount--;
         SetVisualStateNormal(sender);

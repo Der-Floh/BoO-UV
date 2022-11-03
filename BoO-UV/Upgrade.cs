@@ -22,6 +22,7 @@ namespace BoO_UV
         choice,
         resurrect,
         moveSpeed,
+        pickupRange,
     }
     public sealed class Upgrade
     {
@@ -103,6 +104,7 @@ namespace BoO_UV
                     case UpgradeType.dash: return "dash_number.png";
                     case UpgradeType.choice: return "choice.png";
                     case UpgradeType.resurrect: return "resurrect.png";
+                    case UpgradeType.moveSpeed: return "speed.png";
                 }
                 return null;
             }
@@ -154,6 +156,8 @@ namespace BoO_UV
                     case UpgradeType.dash: return "Dash";
                     case UpgradeType.choice: return "Choice";
                     case UpgradeType.resurrect: return "Resurrect";
+                    case UpgradeType.moveSpeed: return "Movespeed";
+                    case UpgradeType.pickupRange: return "Pickup-Range";
                 }
                 return null;
             }

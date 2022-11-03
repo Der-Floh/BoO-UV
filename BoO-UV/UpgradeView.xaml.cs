@@ -76,6 +76,8 @@ public partial class UpgradeView : ContentView
             case UpgradeType.cooldown: return prefix + upgrade.name + ": " + Math.Round(Globals.player.cooldown * 100, Globals.roundingPrecision) + "%";
             case UpgradeType.area: return prefix + upgrade.name + ": " + Math.Round(Globals.player.areaCalc, Globals.roundingPrecision);
             case UpgradeType.resurrect: return prefix + upgrade.name + ": " + Globals.player.resurrect;
+            case UpgradeType.moveSpeed: return prefix + upgrade.name + ": " + Globals.player.moveSpeed;
+            case UpgradeType.pickupRange: return prefix + upgrade.name + ": " + Globals.player.pickupRange;
         }
         return null;
     }

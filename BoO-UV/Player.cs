@@ -55,6 +55,7 @@ namespace BoO_UV
         }
         public int resurrect { get; set; }
         public double moveSpeed { get; set; }
+        public double pickupRange { get; set; }
         public List<Object> objects { get; set; } = new List<Object>();
 
         public Player(int attack = 40, double attackSpeed = 1.5, double critChance = 0.05, double critDamage = 2, int hp = 3, int pierce = 0, int bounce = 0, double cooldown = 1, double area = 1, int resurrect = 0, int projectileCount = 1)
