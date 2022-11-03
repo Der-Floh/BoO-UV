@@ -91,6 +91,8 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\blackmarket\blackmarket_goldnuggetsmall.svg" />
+	  <None Remove="Resources\Images\blackmarket\blackmarket_metaholder.svg" />
+	  <None Remove="Resources\Images\blackmarket\blackmarket_namesign.svg" />
 	  <None Remove="Resources\Images\blackmarket\blackmarket_roger_dialogue.svg" />
 	  <None Remove="Resources\Images\golden_chest_open.svg" />
 	</ItemGroup>
