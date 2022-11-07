@@ -5,6 +5,13 @@ additionally adding the overall dps value.
 In advance I have to say that the stats are more or less easy calculatable, but the dps values can very quickly become very hard to calculate.
 So therefor expect errors in calculations.
 
+## Idea by:
+The wonderful Dex:
+
+[![Dex](https://cdn.discordapp.com/avatars/133907727134097408/67d9d4fffb90514b598948359c88dd1c.png)](https://www.youtube.com/c/DexCitingGaming)
+
+Check out his [Youtube-Channel](https://www.youtube.com/c/DexCitingGaming)
+
 ## Installation
 #### Current Build can be found under [Releases](https://github.com/Der-Floh/BoO-UV/releases)
 To install simply extract the Contents of the zip and start BoO-UV_0.1.2.0_x64.msix its the installer for the app.

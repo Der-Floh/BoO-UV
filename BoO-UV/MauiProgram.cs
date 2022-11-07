@@ -1,4 +1,8 @@
-﻿namespace BoO_UV;
+﻿using SkiaSharp.Views.Maui.Controls.Hosting;
+using System.Reflection;
+using Toolkit;
+
+namespace BoO_UV;
 
 public static class MauiProgram
 {
@@ -6,13 +10,20 @@ public static class MauiProgram
 	{
 		var builder = MauiApp.CreateBuilder();
 		builder
-			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
+			.UseMauiApp<App>().UseSkiaSharp()
+            .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		return builder.Build();
+		InitToolkit();
+
+        return builder.Build();
 	}
+
+    static void InitToolkit()
+    {
+        SVGImage.GloabalDefaultAssemblyName = "BoO-UV"; // not BoO_UV
+    }
 }

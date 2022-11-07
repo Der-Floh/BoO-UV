@@ -5,51 +5,70 @@
              x:Class="BoO_UV.MainPage"
              Title="MainPage">
 
-    <Grid BackgroundColor="Beige">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
+        <Grid BackgroundColor="Beige" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
 
-        <ScrollView Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="2">
-            <Grid Padding="30,0" BackgroundColor="Beige">
-                <local:StackGrid x:Name="UpgradeGrid"/>
+            <ScrollView Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="2">
+                <Grid Padding="30,0" BackgroundColor="Beige">
+                    <local:StackGrid x:Name="UpgradeGrid"/>
+                </Grid>
+            </ScrollView>
+
+            <ImageButton x:Name="addObject" Source="golden_chest.png" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1" Clicked="AddObjectButtonClicked">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="1"/>
+                                    <Setter Property="Source" Value="golden_chest.png"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="1.5"/>
+                                    <Setter Property="Source" Value="golden_chest_open.png"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </ImageButton>
+
+            <local:EmbedView x:Name="EmbedView" IsVisible="false" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3">
+                <local:EmbedView.ContentToShow>
+                    <ScrollView>
+                        <local:StackGrid x:Name="ObjectStackGrid"/>
+                    </ScrollView>
+                </local:EmbedView.ContentToShow>
+            </local:EmbedView>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+                <Label Text="Idea by:        ." HorizontalOptions="End" VerticalOptions="End"/>
+                <ImageButton Source="dex_new.png" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Start" BackgroundColor="Transparent" Clicked="DexButton_Clicked" Aspect="AspectFit"/>
             </Grid>
-        </ScrollView>
-
-        <ImageButton x:Name="addObject" Source="golden_chest.png" BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="FillAndExpand" Grid.Row="1" Grid.Column="1" Clicked="AddObjectButtonClicked">
-            <VisualStateManager.VisualStateGroups>
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal">
-                            <VisualState.Setters>
-                                <Setter Property="Scale" Value="1"/>
-                                <Setter Property="Source" Value="golden_chest.png"/>
-                            </VisualState.Setters>
-                        </VisualState>
-                        <VisualState x:Name="Pressed">
-                            <VisualState.Setters>
-                                <Setter Property="Scale" Value="1.5"/>
-                                <Setter Property="Source" Value="golden_chest_open.png"/>
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </VisualStateManager.VisualStateGroups>
-        </ImageButton>
-
-        <local:EmbedView x:Name="EmbedView" IsVisible="false" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3">
-            <local:EmbedView.ContentToShow>
-                <ScrollView>
-                    <local:StackGrid x:Name="ObjectStackGrid"/>
-                </ScrollView>
-            </local:EmbedView.ContentToShow>
-        </local:EmbedView>
+        </Grid>
     </Grid>
-
 </ContentPage>

@@ -20,6 +20,19 @@ public partial class CharacterStatsPage : ContentPage
         HPEntry.TextChanged += HPEntry_TextChanged;
 
         ResetButton.Clicked += ResetButton_Clicked;
+
+        PrevCharacterButton.Clicked += PrevCharacterButton_Clicked;
+        NextCharacterButton.Clicked += NextCharacterButton_Clicked;
+    }
+
+    private void PrevCharacterButton_Clicked(object sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void NextCharacterButton_Clicked(object sender, EventArgs e)
+    {
+        
     }
 
     private void CharacterStatsPage_Disappearing(object sender, EventArgs e)

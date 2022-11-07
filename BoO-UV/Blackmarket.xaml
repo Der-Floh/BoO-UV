@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BoO_UV.Blackmarket"
              xmlns:local="clr-namespace:BoO_UV"
+             xmlns:toolkit="clr-namespace:Toolkit;assembly=Toolkit"
              Shell.NavBarIsVisible="False"
              Title="Blackmarket">
     
     <Grid x:Name="BackgroundGrid">
-        <Image x:Name="BackgroundImage" Source="blackmarket_bg.png" Grid.Row="0" Grid.Column="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Aspect="AspectFill"/>
-        <Grid x:Name="RogerGrid" Grid.Row="0" Grid.Column="0">
+        <Image x:Name="BackgroundImage" Source="blackmarket_bg.png" VerticalOptions="Fill" HorizontalOptions="Fill" Aspect="AspectFill"/>
+        <Grid x:Name="RogerGrid" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -16,9 +17,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="1.8*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="RogerImage" Source="blackmarket_roger.png" Grid.Row="0" Grid.Column="0" VerticalOptions="End" HorizontalOptions="StartAndExpand"/>
+            <Image x:Name="RogerImage" Source="blackmarket_roger.png" VerticalOptions="End" HorizontalOptions="Start"/>
+            <!--<toolkit:SVGImage x:Name="RogerImage" Source="blackmarket_roger.svg" VerticalImage="End"/>-->
         </Grid>
-        <Grid x:Name="RogerDialogueGrid" Grid.Row="0" Grid.Column="0" Margin="5,20,5,200">
+        <Grid x:Name="RogerDialogueGrid" Margin="5,20,5,200">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="0.5*"/>
@@ -27,10 +29,11 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2.7*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="RogerDialogueImage" Source="blackmarket_roger_dialogue.png" Grid.Row="0" Grid.Column="0" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" Aspect="Fill"/>
-            <Label x:Name="RogerDialogueLabel" Grid.Row="0" Grid.Column="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="30,10,30,50" FontSize="Small"/>
+            <Image x:Name="RogerDialogueImage" Source="blackmarket_roger_dialogue.png" VerticalOptions="Center" HorizontalOptions="Start" Aspect="Fill"/>
+            <!--<toolkit:SVGImage x:Name="RogerDialogueImage" Source="blackmarket_roger_dialogue.svg" VerticalImage="Fill" HorizontalImage="Fill"/>-->
+            <Label x:Name="RogerDialogueLabel" VerticalOptions="Center" HorizontalOptions="Center" Margin="30,10,30,50" FontSize="Small"/>
         </Grid>
-        <Grid x:Name="MarketGrid" Grid.Row="0" Grid.Column="0">
+        <Grid x:Name="MarketGrid" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="20*"/>
@@ -41,6 +44,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Image x:Name="MarketImage" Source="blackmarket_metaholder.png" Grid.Row="1" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" Aspect="Fill"/>
+            <!--<toolkit:SVGImage x:Name="MarketImage" Source="blackmarket_metaholder.svg" Grid.Row="1" Grid.Column="1" VerticalImage="Fill" HorizontalImage="Fill"/>-->
             <Grid x:Name="MarketContentGrid" Grid.Row="1" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1.7*"/>
@@ -52,8 +56,9 @@
                     <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Border x:Name="MarketContentFrame" Grid.Row="1" Grid.Column="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent" Stroke="#3e0c18" StrokeThickness="3">
+                <Border x:Name="MarketContentFrame" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="Transparent" Stroke="#3e0c18" StrokeThickness="3">
                     <ScrollView x:Name="MarketContentScrollView" Margin="20,10,10,20">
+                        <!--<VerticalStackLayout x:Name="MarketContentUpgradesGrid"/>-->
                         <Grid x:Name="MarketContentUpgradesGrid" MaximumHeightRequest="500">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
@@ -74,7 +79,7 @@
                 </Border>
             </Grid>
         </Grid>
-        <Grid x:Name="SignsGrid" Grid.Row="0" Grid.Column="0">
+        <Grid x:Name="SignsGrid" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.5*"/>
                 <RowDefinition Height="5*"/>
@@ -84,8 +89,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="SignImage" Source="blackmarket_namesign.png" Grid.Row="0" Grid.Column="1" VerticalOptions="StartAndExpand" HorizontalOptions="Center"/>
-            <Image x:Name="BackButtonImage" Source="button_unlit.png" Grid.Row="2" Grid.Column="1" VerticalOptions="End" HorizontalOptions="Center" IsVisible="false"/>
+            <Image x:Name="SignImage" Source="blackmarket_namesign.png" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="Center"/>
+            <!--<toolkit:SVGImage x:Name="SignImage" Source="blackmarket_namesign.svg" Grid.Column="1" VerticalImage="Start" HorizontalImage="Center"/>-->
         </Grid>
     </Grid>
 </ContentPage>

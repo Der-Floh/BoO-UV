@@ -17,7 +17,19 @@ public partial class UpgradeView : ContentView
     {
         InitializeComponent();
         Globals.player.onGetUpgrade += OnPlayerGetUpgrade;
+        UpgradeGraphicsView.StartHoverInteraction += UpgradeGraphicsView_StartHoverInteraction;
+        UpgradeGraphicsView.EndHoverInteraction += UpgradeGraphicsView_EndHoverInteraction;
         this.upgrade = upgrade;
+    }
+
+    private void UpgradeGraphicsView_EndHoverInteraction(object sender, EventArgs e)
+    {
+        SelectedImage.IsVisible = false;
+    }
+
+    private void UpgradeGraphicsView_StartHoverInteraction(object sender, TouchEventArgs e)
+    {
+        SelectedImage.IsVisible = true;
     }
 
     private void OnSliderValueChanged(object sender, ValueChangedEventArgs args)

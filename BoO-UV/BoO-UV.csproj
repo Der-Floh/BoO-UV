@@ -80,6 +80,7 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\blackmarket\blackmarket_roger_dialogue.svg" BaseSize="320,320" />
+		<MauiImage Include="Resources\Images\dex_new.svg" BaseSize="512,512" />
 		<MauiImage Include="Resources\Images\**" />
 
 		<!-- Custom Fonts -->
@@ -93,8 +94,13 @@
 	  <None Remove="Resources\Images\blackmarket\blackmarket_goldnuggetsmall.svg" />
 	  <None Remove="Resources\Images\blackmarket\blackmarket_metaholder.svg" />
 	  <None Remove="Resources\Images\blackmarket\blackmarket_namesign.svg" />
+	  <None Remove="Resources\Images\blackmarket\blackmarket_roger.svg" />
 	  <None Remove="Resources\Images\blackmarket\blackmarket_roger_dialogue.svg" />
 	  <None Remove="Resources\Images\golden_chest_open.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Toolkit\Toolkit.csproj" />
 	</ItemGroup>
 	<!--
 	<ItemGroup>
@@ -113,6 +119,27 @@
 	  <Compile Update="UpgradeView.xaml.cs">
 	    <DependentUpon>UpgradeView.xaml</DependentUpon>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Update="Resources\Images\blackmarket\blackmarket_metaholder.svg">
+	    <CopyToOutputDirectory></CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Update="Resources\Images\blackmarket\blackmarket_namesign.svg">
+	    <CopyToOutputDirectory></CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Update="Resources\Images\blackmarket\blackmarket_roger.svg">
+	    <CopyToOutputDirectory></CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Update="Resources\Images\blackmarket\blackmarket_roger_dialogue.svg" BaseSize="320,320">
+	    <CopyToOutputDirectory></CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Update="Resources\Images\character\bgcharacterpresentation.svg">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Update="Resources\Images\character\charaselect_wanted.svg">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </MauiImage>
 	</ItemGroup>
 
 	<ItemGroup>

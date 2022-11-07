@@ -42,5 +42,7 @@
                 </VisualStateGroupList>
             </VisualStateManager.VisualStateGroups>
         </Button>
+        <Image x:Name="SelectedImage" Source="selection_1_red.png" IsVisible="false"/>
+        <GraphicsView x:Name="UpgradeGraphicsView"/>
     </Grid>
 </ContentView>

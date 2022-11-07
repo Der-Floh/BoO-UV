@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualBasic;
+﻿using System.Diagnostics;
 
 namespace BoO_UV;
 
@@ -47,6 +47,15 @@ public partial class MainPage : ContentPage
         */
         EmbedView.UpdateContent();
         EmbedView.IsVisible = true;
+    }
+    private void DexButton_Clicked(object sender, EventArgs args)
+    {
+        var ps = new ProcessStartInfo("https://www.youtube.com/c/DexCitingGaming")
+        {
+            UseShellExecute = true,
+            Verb = "open"
+        };
+        Process.Start(ps);
     }
 }
 
