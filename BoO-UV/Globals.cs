@@ -10,6 +10,7 @@ namespace BoO_UV
     public static class Globals
     {
         public static List<Object> objectList { get; set; } = new List<Object>();
+        public static List<Character> characterList { get; set; } = new List<Character>(); 
         public static List<UpgradeView> upgradeViews { get; set; } = new List<UpgradeView>();
         public static List<ObjectView> objectViews { get; set; } = new List<ObjectView>();
         public static List<UpgradeType> wantedUpgrades { get; set; } = new List<UpgradeType>();
@@ -17,7 +18,7 @@ namespace BoO_UV
         public static List<BlackmarketContentView> blackmarketContents { get; set; } = new List<BlackmarketContentView>();
         public static EmbedView EmbedView { get; set; }
         public static StackGrid UpgradeGrid { get; set; }
-        public static Player player { get; set; } = new Player();
+        public static Player player { get; set; }
 
         public static int roundingPrecision { get; set; } = 2;
         public static int columnAmount { get; set; } = 5;
@@ -37,20 +38,13 @@ namespace BoO_UV
             wantedUpgrades.Add(UpgradeType.critDamage);
             wantedUpgrades.Add(UpgradeType.hp);
 
-            blackmarketContents.Add(new BlackmarketContentView { typeText = "RIDGED BARREL", description = "Start your game with 1 common\r\ndamage upgrade.", upgradeType = UpgradeType.damage, amountAdd = 1, maxAmount = 1, cost = 20 });
-            blackmarketContents.Add(new BlackmarketContentView { typeText = "MODIFIED TRIGGER", description = "Start your game with 1 common\r\nattack speed upgrade.", upgradeType = UpgradeType.attackSpeed, amountAdd = 1, maxAmount = 1, cost = 20 });
-            blackmarketContents.Add(new BlackmarketContentView { typeText = "SPRING LOADED SOLES", description = "Start your game with 1 more dash.", upgradeType = UpgradeType.dash, amountAdd = 1, maxAmount = 1, cost = 30 });
-            blackmarketContents.Add(new BlackmarketContentView { typeText = "METAL PLATE", description = "Start your game with 1 more health.", upgradeType = UpgradeType.hp, amountAdd = 1, maxAmount = 1, cost = 30 });
-            blackmarketContents.Add(new BlackmarketContentView { typeText = "AIR BOOTS", description = "You move 2% faster.", upgradeType = UpgradeType.moveSpeed, amountAdd = 2, maxAmount = 5, cost = 1, isPercent = true });
-            blackmarketContents.Add(new BlackmarketContentView { typeText = "COUNTERFEIT WRISTWATCH", description = "Start with 2% cooldown reduction.", upgradeType = UpgradeType.cooldown, amountAdd = 2, maxAmount = 5, cost = 1, isPercent = true });
-            blackmarketContents.Add(new BlackmarketContentView { typeText = "AMPLIFIER", description = "Start with 2% bigger area effect.", upgradeType = UpgradeType.area, amountAdd = 2, maxAmount = 5, cost = 1, isPercent = true });
-            blackmarketContents.Add(new BlackmarketContentView { typeText = "BROKEN MAGNET", description = "Attract your collectibles from 2%\r\nfurther away.", upgradeType = UpgradeType.pickupRange, amountAdd = 2, maxAmount = 5, cost = 1, isPercent = true });
-            blackmarketContents.Add(new BlackmarketContentView { typeText = "LUCKY STAR", description = "Raise the chance of generating an\r\nadditionl choice in chest by 10%.", amountAdd = 10, maxAmount = 5, cost = 5, isPercent = true });
-            blackmarketContents.Add(new BlackmarketContentView { typeText = "FOUR LEAF CLOVER", description = "Raise the chance of generating an\r\nadditionl choice in for your upgrades\r\nby 10%.", amountAdd = 10, maxAmount = 5, cost = 5, isPercent = true });
-            blackmarketContents.Add(new BlackmarketContentView { typeText = "LOADED DIE", description = "Gain 1 reroll for your upgrades per\r\ngame.", amountAdd = 1, maxAmount = 2, cost = 10 });
-            blackmarketContents.Add(new BlackmarketContentView { typeText = "FATED DIE", description = "Gain 1 reroll in your chests per\r\ngame.", amountAdd = 1, maxAmount = 2, cost = 10 });
+            CreateCurrentExistingCharacters();
 
+            player = new Player(characterList.Find(x => x.name == "ranger"));
+
+            CreateCurrentExistingBlackmarketChoices();
             CreateCurrentExistingObjects();
+
             CreateDefaultUpgrades();
             CreateDefaultObjects();
         }
@@ -158,6 +152,26 @@ namespace BoO_UV
             }
             possibleObjects = possibleObjects.OrderBy(x => x.rarity).ThenBy(x => x.name).ToList();
         }
+        public static void CreateCurrentExistingCharacters()
+        {
+            new Character("ranger") { attack = 40, attackSpeed = 1.5, critChance = 0.05, critDamage = 2, hp = 3, pierce = 0, bounce = 0, cooldown = 1, area = 1, resurrect = 0, projectileCount = 1 };
+        }
+        public static void CreateCurrentExistingBlackmarketChoices()
+        {
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "RIDGED BARREL", description = "Start your game with 1 common\r\ndamage upgrade.", upgradeType = UpgradeType.damage, amountAdd = 1, maxAmount = 1, cost = 20 });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "MODIFIED TRIGGER", description = "Start your game with 1 common\r\nattack speed upgrade.", upgradeType = UpgradeType.attackSpeed, amountAdd = 1, maxAmount = 1, cost = 20 });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "SPRING LOADED SOLES", description = "Start your game with 1 more dash.", upgradeType = UpgradeType.dash, amountAdd = 1, maxAmount = 1, cost = 30 });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "METAL PLATE", description = "Start your game with 1 more health.", upgradeType = UpgradeType.hp, amountAdd = 1, maxAmount = 1, cost = 30 });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "AIR BOOTS", description = "You move 2% faster.", upgradeType = UpgradeType.moveSpeed, amountAdd = 2, maxAmount = 5, cost = 1, isPercent = true });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "COUNTERFEIT WRISTWATCH", description = "Start with 2% cooldown reduction.", upgradeType = UpgradeType.cooldown, amountAdd = 2, maxAmount = 5, cost = 1, isPercent = true });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "AMPLIFIER", description = "Start with 2% bigger area effect.", upgradeType = UpgradeType.area, amountAdd = 2, maxAmount = 5, cost = 1, isPercent = true });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "BROKEN MAGNET", description = "Attract your collectibles from 2%\r\nfurther away.", upgradeType = UpgradeType.pickupRange, amountAdd = 2, maxAmount = 5, cost = 1, isPercent = true });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "LUCKY STAR", description = "Raise the chance of generating an\r\nadditionl choice in chest by 10%.", amountAdd = 10, maxAmount = 5, cost = 5, isPercent = true });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "FOUR LEAF CLOVER", description = "Raise the chance of generating an\r\nadditionl choice in for your upgrades\r\nby 10%.", amountAdd = 10, maxAmount = 5, cost = 5, isPercent = true });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "LOADED DIE", description = "Gain 1 reroll for your upgrades per\r\ngame.", amountAdd = 1, maxAmount = 2, cost = 10 });
+            blackmarketContents.Add(new BlackmarketContentView { typeText = "FATED DIE", description = "Gain 1 reroll in your chests per\r\ngame.", amountAdd = 1, maxAmount = 2, cost = 10 });
+        }
+
         public static void ResetObjects()
         {
             objectList.Clear();

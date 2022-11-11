@@ -63,7 +63,7 @@ public partial class CharacterStatsPage : ContentPage
 
     private void ResetButton_Clicked(object sender, EventArgs e)
     {
-        Player newPlayer = new Player();
+        Player newPlayer = new Player(Globals.characterList.Find(x => x.name == "ranger"));
         Globals.player.attack = newPlayer.attack;
         Globals.player.projectileCount = 1;
         Globals.player.attackSpeed = newPlayer.attackSpeed;

@@ -1,375 +1,391 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 
-namespace BoO_UV
+namespace BoO_UV;
+
+public sealed class Player
 {
-    public sealed class Player
+    public event OnPlayerGetUpgrade onGetUpgrade;
+    public event OnPlayerGetObject onGetObject;
+    public int attack { get { return character.attack + _attack; } set { _attack = value; } }
+    private int _attack;
+    public double attackCalc
     {
-        public event OnPlayerGetUpgrade onGetUpgrade;
-        public event OnPlayerGetObject onGetObject;
-        public int attack { get; set; }
-        public double attackCalc
+        get
         {
-            get
+            double attackTemp = attack;
+            foreach (Object currObject in objects.Where(x => x.attackMultiplicator != 0))
             {
-                double attackTemp = attack;
-                foreach (Object currObject in objects.Where(x => x.attackMultiplicator != 0))
-                {
-                    attackTemp *= currObject.attackMultiplicator;
-                }
-                return attackTemp;
+                attackTemp *= currObject.attackMultiplicatorCalc;
             }
-        }
-        public int projectileCount { get; set; }
-        public double attackSpeed { get; set; }
-        public double attackSpeedCalc
-        {
-            get
-            {
-                double attackSpeedTemp = attackSpeed;
-                foreach (Object currObject in objects.Where(x => x.attackSpeedMultiplicator != 0))
-                {
-                    attackSpeedTemp *= currObject.attackSpeedMultiplicator;
-                }
-                return attackSpeedTemp;
-            }
-        }
-        public double critChance { get; set; }
-        public double critDamage { get; set; }
-        public int hp { get; set; }
-        public int pierce { get; set; }
-        public int bounce { get; set; }
-        public double cooldown { get; set; }
-        public double area { get; set; }
-        public double areaCalc
-        {
-            get
-            {
-                double areaTemp = area;
-                foreach (Object currObject in objects.Where(x => x.areaMultiplicator != 0))
-                {
-                    areaTemp *= currObject.areaMultiplicator;
-                }
-                return areaTemp;
-            }
-        }
-        public int resurrect { get; set; }
-        public double moveSpeed { get; set; }
-        public double pickupRange { get; set; }
-        public List<Object> objects { get; set; } = new List<Object>();
-
-        public Player(int attack = 40, double attackSpeed = 1.5, double critChance = 0.05, double critDamage = 2, int hp = 3, int pierce = 0, int bounce = 0, double cooldown = 1, double area = 1, int resurrect = 0, int projectileCount = 1)
-        {
-            this.attack = attack;
-            this.attackSpeed = attackSpeed;
-            this.critChance = critChance;
-            this.critDamage = critDamage;
-            this.hp = hp;
-            this.pierce = pierce;
-            this.bounce = bounce;
-            this.cooldown = cooldown;
-            this.area = area;
-            this.resurrect = resurrect;
-            this.projectileCount = projectileCount;
-        }
-
-        public void AddUpgrade(Upgrade upgrade, bool throwGetEvent = false)
-        {
-            switch (upgrade.type)
-            {
-                case UpgradeType.damage: AddDamageUpgrade(upgrade.rarity, true); break;
-                case UpgradeType.attackSpeed: AddAttackSpeedUpgrade(upgrade.rarity, true); break;
-                case UpgradeType.critChance: AddCritChanceUpgrade(upgrade.rarity, true); break;
-                case UpgradeType.critDamage: AddCritDamageUpgrade(upgrade.rarity, true); break;
-                case UpgradeType.hp: AddHPUpgrade(upgrade.rarity, true); break;
-                case UpgradeType.cooldown: AddCooldownUpgrade(upgrade.rarity, true); break;
-                case UpgradeType.area: AddAreaUpgrade(upgrade.rarity, true); break;
-                case UpgradeType.pierce: AddPierceUpgrade(upgrade.rarity, true); break;
-                case UpgradeType.bounce: AddBounceUpgrade(upgrade.rarity, true); break;
-                case UpgradeType.resurrect: AddResurrectUpgrade(upgrade.rarity, true); break;
-                case UpgradeType.moveSpeed: AddMoveSpeedUpgrade(upgrade.rarity, true); break;
-            }
-            if (throwGetEvent)
-                onGetUpgrade(this, new UpgradeEventArgs(upgrade));
-        }
-        public void RemoveUpgrade(Upgrade upgrade)
-        {
-            switch (upgrade.type)
-            {
-                case UpgradeType.damage: AddDamageUpgrade(upgrade.rarity, false); break;
-                case UpgradeType.attackSpeed: AddAttackSpeedUpgrade(upgrade.rarity, false); break;
-                case UpgradeType.critChance: AddCritChanceUpgrade(upgrade.rarity, false); break;
-                case UpgradeType.critDamage: AddCritDamageUpgrade(upgrade.rarity, false); break;
-                case UpgradeType.hp: AddHPUpgrade(upgrade.rarity, false); break;
-                case UpgradeType.cooldown: AddCooldownUpgrade(upgrade.rarity, false); break;
-                case UpgradeType.area: AddAreaUpgrade(upgrade.rarity, false); break;
-                case UpgradeType.pierce: AddPierceUpgrade(upgrade.rarity, false); break;
-                case UpgradeType.bounce: AddBounceUpgrade(upgrade.rarity, false); break;
-                case UpgradeType.resurrect: AddResurrectUpgrade(upgrade.rarity, false); break;
-                case UpgradeType.moveSpeed: AddMoveSpeedUpgrade(upgrade.rarity, false); break;
-            }
-        }
-        public double GetUpgrade(Upgrade upgrade)
-        {
-            switch (upgrade.type)
-            {
-                case UpgradeType.damage: return GetDamageUpgrade(upgrade.rarity);
-                case UpgradeType.attackSpeed: return GetAttackSpeedUpgrade(upgrade.rarity);
-                case UpgradeType.critChance: return GetCritChanceUpgrade(upgrade.rarity);
-                case UpgradeType.critDamage: return GetCritDamageUpgrade(upgrade.rarity);
-                case UpgradeType.hp: return GetHPUpgrade(upgrade.rarity);
-                case UpgradeType.cooldown: return GetCooldownUpgrade(upgrade.rarity);
-                case UpgradeType.area: return GetAreaUpgrade(upgrade.rarity);
-                case UpgradeType.pierce: return GetPierceUpgrade(upgrade.rarity);
-                case UpgradeType.bounce: return GetBounceUpgrade(upgrade.rarity);
-                case UpgradeType.resurrect: return GetResurrectUpgrade(upgrade.rarity);
-                case UpgradeType.moveSpeed: return GetMoveSpeedUpgrade(upgrade.rarity);
-            }
-            return 0;
-        }
-
-        private void AddDamageUpgrade(byte rarity, bool add)
-        {
-            if (add)
-                attack += GetDamageUpgrade(rarity);
-            else
-                attack -= GetDamageUpgrade(rarity);
-        }
-        private int GetDamageUpgrade(byte rarity)
-        {
-            switch (rarity)
-            {
-                case 0: return 10;
-                case 1: return 15;
-                case 2: return 20;
-                case 3: return 30;
-            }
-            return 0;
-        }
-        private void AddAttackSpeedUpgrade(byte rarity, bool add)
-        {
-            if (add)
-                attackSpeed = Math.Round(attackSpeed + GetAttackSpeedUpgrade(rarity), Globals.roundingPrecision);
-            else
-                attackSpeed = Math.Round(attackSpeed - GetAttackSpeedUpgrade(rarity), Globals.roundingPrecision);
-        }
-        private double GetAttackSpeedUpgrade(byte rarity)
-        {
-            switch (rarity)
-            {
-                case 0: return 0.3;
-                case 1: return 0.45;
-                case 2: return 0.6;
-                case 3: return 1;
-            }
-            return 0;
-        }
-        private void AddCritChanceUpgrade(byte rarity, bool add)
-        {
-            if (add)
-                critChance = Math.Round(critChance + GetCritChanceUpgrade(rarity), Globals.roundingPrecision);
-            else
-                critChance = Math.Round(critChance - GetCritChanceUpgrade(rarity), Globals.roundingPrecision);
-        }
-        private double GetCritChanceUpgrade(byte rarity)
-        {
-            switch (rarity)
-            {
-                case 0: return 0.05;
-                case 1: return 0.1;
-            }
-            return 0;
-        }
-        private void AddCritDamageUpgrade(byte rarity, bool add)
-        {
-            if (add)
-                critDamage = Math.Round(critDamage + GetCritDamageUpgrade(rarity), Globals.roundingPrecision);
-            else
-                critDamage = Math.Round(critDamage - GetCritDamageUpgrade(rarity), Globals.roundingPrecision);
-        }
-        private double GetCritDamageUpgrade(byte rarity)
-        {
-            switch (rarity)
-            {
-                case 1: return 1;
-                case 2: return 1.5;
-            }
-            return 0;
-        }
-        private void AddHPUpgrade(byte rarity, bool add)
-        {
-            if (add)
-                hp += GetHPUpgrade(rarity);
-            else
-                hp -= GetHPUpgrade(rarity);
-        }
-        private int GetHPUpgrade(byte rarity)
-        {
-            switch (rarity)
-            {
-                case 1: return 1;
-                case 2: return 2;
-            }
-            return 0;
-        }
-        private void AddPierceUpgrade(byte rarity, bool add)
-        {
-            if (add)
-                pierce += GetPierceUpgrade(rarity);
-            else
-                pierce -= GetPierceUpgrade(rarity);
-        }
-        private int GetPierceUpgrade(byte rarity)
-        {
-            switch (rarity)
-            {
-                case 3: return 1;
-            }
-            return 0;
-        }
-        private void AddBounceUpgrade(byte rarity, bool add)
-        {
-            if (add)
-                bounce += GetBounceUpgrade(rarity);
-            else
-                bounce -= GetBounceUpgrade(rarity);
-        }
-        private int GetBounceUpgrade(byte rarity)
-        {
-            switch (rarity)
-            {
-                case 3: return 1;
-            }
-            return 0;
-        }
-        private void AddCooldownUpgrade(byte rarity, bool add)
-        {
-            if (add)
-                cooldown *= 1.0 - GetCooldownUpgrade(rarity);
-            else
-                cooldown /= 1.0 - GetCooldownUpgrade(rarity);
-        }
-        private double GetCooldownUpgrade(byte rarity)
-        {
-            switch (rarity)
-            {
-                case 1: return 0.1;
-                case 2: return 0.15;
-            }
-            return 0;
-        }
-        private void AddAreaUpgrade(byte rarity, bool add)
-        {
-            if (add)
-                area += GetAreaUpgrade(rarity);
-            else
-                area -= GetAreaUpgrade(rarity);
-        }
-        private double GetAreaUpgrade(byte rarity)
-        {
-            switch (rarity)
-            {
-                case 1: return 0.2;
-                case 2: return 0.3;
-                case 3: return 0.4;
-            }
-            return 0;
-        }
-        private void AddResurrectUpgrade(byte rarity, bool add)
-        {
-            if (add)
-                resurrect += GetResurrectUpgrade(rarity);
-            else
-                resurrect -= GetResurrectUpgrade(rarity);
-        }
-        private int GetResurrectUpgrade(byte rarity)
-        {
-            switch (rarity)
-            {
-                case 3: return 1;
-            }
-            return 0;
-        }
-        private void AddMoveSpeedUpgrade(byte rarity, bool add)
-        {
-            if (add)
-                moveSpeed += GetMoveSpeedUpgrade(rarity);
-            else
-                moveSpeed -= GetMoveSpeedUpgrade(rarity);
-        }
-        private double GetMoveSpeedUpgrade(byte rarity)
-        {
-            switch (rarity)
-            {
-                case 1: return 0.5;
-            }
-            return 0;
-        }
-
-        public void AddObject(Object currobject, bool throwGetEvent = false)
-        {
-            attack += currobject.attackBaseAdd;
-            projectileCount += currobject.projectileAdd;
-            attackSpeed += currobject.attackSpeedBaseAdd;
-            critChance += currobject.critChanceBaseAdd;
-            critDamage += currobject.critDamageBaseAdd;
-            hp += currobject.hpAdd;
-            pierce += currobject.pierceAdd;
-            bounce += currobject.bounceAdd;
-            area += currobject.areaBaseAdd;
-            objects.Add(currobject);
-            if (throwGetEvent)
-                onGetObject(this, new ObjectEventArgs(currobject));
-        }
-        public void RemoveObject(Object currobject)
-        {
-            attack -= currobject.attackBaseAdd;
-            projectileCount -= currobject.projectileAdd;
-            attackSpeed -= currobject.attackSpeedBaseAdd;
-            critChance -= currobject.critChanceBaseAdd;
-            critDamage -= currobject.critDamageBaseAdd;
-            hp -= currobject.hpAdd;
-            pierce -= currobject.pierceAdd;
-            bounce -= currobject.bounceAdd;
-            area -= currobject.areaBaseAdd;
-            objects.Remove(currobject);
-        }
-
-        public double GetDps(Upgrade currupgrade = null, Object currobject = null)
-        {
-            if (currupgrade != null) AddUpgrade(currupgrade);
-            if (currobject != null) AddObject(currobject);
-
-            double dps = attackCalc * attackSpeedCalc;
-
-            double dpsCrit = dps * critDamage;
-
-            dps = dps * (1 - critChance) + dpsCrit * critChance;
-
-            dps *= projectileCount;
-
-            if (currupgrade != null) RemoveUpgrade(currupgrade);
-            if (currobject != null) RemoveObject(currobject);
-            return Math.Round(dps, Globals.roundingPrecision);
+            return attackTemp;
         }
     }
-
-    public delegate void OnPlayerGetUpgrade(object source, UpgradeEventArgs args);
-    public class UpgradeEventArgs : EventArgs
+    public int projectileCount { get { return character.projectileCount + _projectileCount; } set { _projectileCount = value; } }
+    private int _projectileCount;
+    public double attackSpeed { get { return character.attackSpeed + _attackSpeed; } set { _attackSpeed = value; } }
+    private double _attackSpeed;
+    public double attackSpeedCalc
     {
-        private Upgrade currupgrade { get; set; }
-        public UpgradeEventArgs(Upgrade currupgrade)
+        get
         {
-            this.currupgrade = currupgrade;
+            double attackSpeedTemp = attackSpeed;
+            foreach (Object currObject in objects.Where(x => x.attackSpeedMultiplicator != 0))
+            {
+                attackSpeedTemp *= currObject.attackSpeedMultiplicator;
+            }
+            return attackSpeedTemp;
         }
     }
-    public delegate void OnPlayerGetObject(object source, ObjectEventArgs args);
-    public class ObjectEventArgs : EventArgs
+    public double critChance { get { return character.critChance + _critChance; } set { _critChance = value; } }
+    private double _critChance;
+    public double critDamage { get { return character.critDamage + _critDamage; } set { _critDamage = value; } }
+    private double _critDamage;
+    public int hp { get { return character.hp + _hp; } set { _hp = value; } }
+    private int _hp;
+    public int pierce { get { return character.pierce + _pierce; } set { _pierce = value; } }
+    private int _pierce;
+    public int bounce { get { return character.bounce + _bounce; } set { _bounce = value; } }
+    private int _bounce;
+    public double cooldown { get { return character.cooldown + _cooldown; } set { _cooldown = value; } }
+    private double _cooldown;
+    public double area { get { return character.area + _area; } set { _area = value; } }
+    private double _area;
+    public double areaCalc
     {
-        public Object currobject { get; set; }
-        public ObjectEventArgs(Object currobject)
+        get
         {
-            this.currobject = currobject;
+            double areaTemp = area;
+            foreach (Object currObject in objects.Where(x => x.areaMultiplicator != 0))
+            {
+                areaTemp *= currObject.areaMultiplicator;
+            }
+            return areaTemp;
         }
+    }
+    public int resurrect { get { return character.resurrect + _resurrect; } set { _resurrect = value; } }
+    private int _resurrect;
+    public double moveSpeed { get { return character.moveSpeed + _moveSpeed; } set { _moveSpeed = value; } }
+    private double _moveSpeed;
+    public double pickupRange { get { return character.pickupRange + _pickupRange; } set { _pickupRange = value; } }
+    private double _pickupRange;
+    public List<Object> objects { get; set; } = new List<Object>();
+    public Character character { get; set; }
+
+    public Player(Character character)
+    {
+        this.character = character;
+        /*
+        this.attack = attack;
+        this.attackSpeed = attackSpeed;
+        this.critChance = critChance;
+        this.critDamage = critDamage;
+        this.hp = hp;
+        this.pierce = pierce;
+        this.bounce = bounce;
+        this.cooldown = cooldown;
+        this.area = area;
+        this.resurrect = resurrect;
+        this.projectileCount = projectileCount;
+        */
+    }
+
+    public void AddUpgrade(Upgrade upgrade, bool throwGetEvent = false)
+    {
+        switch (upgrade.type)
+        {
+            case UpgradeType.damage: AddDamageUpgrade(upgrade.rarity, true); break;
+            case UpgradeType.attackSpeed: AddAttackSpeedUpgrade(upgrade.rarity, true); break;
+            case UpgradeType.critChance: AddCritChanceUpgrade(upgrade.rarity, true); break;
+            case UpgradeType.critDamage: AddCritDamageUpgrade(upgrade.rarity, true); break;
+            case UpgradeType.hp: AddHPUpgrade(upgrade.rarity, true); break;
+            case UpgradeType.cooldown: AddCooldownUpgrade(upgrade.rarity, true); break;
+            case UpgradeType.area: AddAreaUpgrade(upgrade.rarity, true); break;
+            case UpgradeType.pierce: AddPierceUpgrade(upgrade.rarity, true); break;
+            case UpgradeType.bounce: AddBounceUpgrade(upgrade.rarity, true); break;
+            case UpgradeType.resurrect: AddResurrectUpgrade(upgrade.rarity, true); break;
+            case UpgradeType.moveSpeed: AddMoveSpeedUpgrade(upgrade.rarity, true); break;
+        }
+        if (throwGetEvent)
+            onGetUpgrade(this, new UpgradeEventArgs(upgrade));
+    }
+    public void RemoveUpgrade(Upgrade upgrade)
+    {
+        switch (upgrade.type)
+        {
+            case UpgradeType.damage: AddDamageUpgrade(upgrade.rarity, false); break;
+            case UpgradeType.attackSpeed: AddAttackSpeedUpgrade(upgrade.rarity, false); break;
+            case UpgradeType.critChance: AddCritChanceUpgrade(upgrade.rarity, false); break;
+            case UpgradeType.critDamage: AddCritDamageUpgrade(upgrade.rarity, false); break;
+            case UpgradeType.hp: AddHPUpgrade(upgrade.rarity, false); break;
+            case UpgradeType.cooldown: AddCooldownUpgrade(upgrade.rarity, false); break;
+            case UpgradeType.area: AddAreaUpgrade(upgrade.rarity, false); break;
+            case UpgradeType.pierce: AddPierceUpgrade(upgrade.rarity, false); break;
+            case UpgradeType.bounce: AddBounceUpgrade(upgrade.rarity, false); break;
+            case UpgradeType.resurrect: AddResurrectUpgrade(upgrade.rarity, false); break;
+            case UpgradeType.moveSpeed: AddMoveSpeedUpgrade(upgrade.rarity, false); break;
+        }
+    }
+    public double GetUpgrade(Upgrade upgrade)
+    {
+        switch (upgrade.type)
+        {
+            case UpgradeType.damage: return GetDamageUpgrade(upgrade.rarity);
+            case UpgradeType.attackSpeed: return GetAttackSpeedUpgrade(upgrade.rarity);
+            case UpgradeType.critChance: return GetCritChanceUpgrade(upgrade.rarity);
+            case UpgradeType.critDamage: return GetCritDamageUpgrade(upgrade.rarity);
+            case UpgradeType.hp: return GetHPUpgrade(upgrade.rarity);
+            case UpgradeType.cooldown: return GetCooldownUpgrade(upgrade.rarity);
+            case UpgradeType.area: return GetAreaUpgrade(upgrade.rarity);
+            case UpgradeType.pierce: return GetPierceUpgrade(upgrade.rarity);
+            case UpgradeType.bounce: return GetBounceUpgrade(upgrade.rarity);
+            case UpgradeType.resurrect: return GetResurrectUpgrade(upgrade.rarity);
+            case UpgradeType.moveSpeed: return GetMoveSpeedUpgrade(upgrade.rarity);
+        }
+        return 0;
+    }
+
+    private void AddDamageUpgrade(byte rarity, bool add)
+    {
+        if (add)
+            _attack += GetDamageUpgrade(rarity);
+        else
+            _attack -= GetDamageUpgrade(rarity);
+    }
+    private int GetDamageUpgrade(byte rarity)
+    {
+        switch (rarity)
+        {
+            case 0: return 10;
+            case 1: return 15;
+            case 2: return 20;
+            case 3: return 30;
+        }
+        return 0;
+    }
+    private void AddAttackSpeedUpgrade(byte rarity, bool add)
+    {
+        if (add)
+            _attackSpeed = Math.Round(_attackSpeed + GetAttackSpeedUpgrade(rarity), Globals.roundingPrecision);
+        else
+            _attackSpeed = Math.Round(_attackSpeed - GetAttackSpeedUpgrade(rarity), Globals.roundingPrecision);
+    }
+    private double GetAttackSpeedUpgrade(byte rarity)
+    {
+        switch (rarity)
+        {
+            case 0: return 0.3;
+            case 1: return 0.45;
+            case 2: return 0.6;
+            case 3: return 1;
+        }
+        return 0;
+    }
+    private void AddCritChanceUpgrade(byte rarity, bool add)
+    {
+        if (add)
+            _critChance = Math.Round(_critChance + GetCritChanceUpgrade(rarity), Globals.roundingPrecision);
+        else
+            _critChance = Math.Round(_critChance - GetCritChanceUpgrade(rarity), Globals.roundingPrecision);
+    }
+    private double GetCritChanceUpgrade(byte rarity)
+    {
+        switch (rarity)
+        {
+            case 0: return 0.05;
+            case 1: return 0.1;
+        }
+        return 0;
+    }
+    private void AddCritDamageUpgrade(byte rarity, bool add)
+    {
+        if (add)
+            _critDamage = Math.Round(_critDamage + GetCritDamageUpgrade(rarity), Globals.roundingPrecision);
+        else
+            _critDamage = Math.Round(_critDamage - GetCritDamageUpgrade(rarity), Globals.roundingPrecision);
+    }
+    private double GetCritDamageUpgrade(byte rarity)
+    {
+        switch (rarity)
+        {
+            case 1: return 1;
+            case 2: return 1.5;
+        }
+        return 0;
+    }
+    private void AddHPUpgrade(byte rarity, bool add)
+    {
+        if (add)
+            _hp += GetHPUpgrade(rarity);
+        else
+            _hp -= GetHPUpgrade(rarity);
+    }
+    private int GetHPUpgrade(byte rarity)
+    {
+        switch (rarity)
+        {
+            case 1: return 1;
+            case 2: return 2;
+        }
+        return 0;
+    }
+    private void AddPierceUpgrade(byte rarity, bool add)
+    {
+        if (add)
+            _pierce += GetPierceUpgrade(rarity);
+        else
+            _pierce -= GetPierceUpgrade(rarity);
+    }
+    private int GetPierceUpgrade(byte rarity)
+    {
+        switch (rarity)
+        {
+            case 3: return 1;
+        }
+        return 0;
+    }
+    private void AddBounceUpgrade(byte rarity, bool add)
+    {
+        if (add)
+            _bounce += GetBounceUpgrade(rarity);
+        else
+            _bounce -= GetBounceUpgrade(rarity);
+    }
+    private int GetBounceUpgrade(byte rarity)
+    {
+        switch (rarity)
+        {
+            case 3: return 1;
+        }
+        return 0;
+    }
+    private void AddCooldownUpgrade(byte rarity, bool add)
+    {
+        if (add)
+            _cooldown *= 1.0 - GetCooldownUpgrade(rarity);
+        else
+            _cooldown /= 1.0 - GetCooldownUpgrade(rarity);
+    }
+    private double GetCooldownUpgrade(byte rarity)
+    {
+        switch (rarity)
+        {
+            case 1: return 0.1;
+            case 2: return 0.15;
+        }
+        return 0;
+    }
+    private void AddAreaUpgrade(byte rarity, bool add)
+    {
+        if (add)
+            _area += GetAreaUpgrade(rarity);
+        else
+            _area -= GetAreaUpgrade(rarity);
+    }
+    private double GetAreaUpgrade(byte rarity)
+    {
+        switch (rarity)
+        {
+            case 1: return 0.2;
+            case 2: return 0.3;
+            case 3: return 0.4;
+        }
+        return 0;
+    }
+    private void AddResurrectUpgrade(byte rarity, bool add)
+    {
+        if (add)
+            _resurrect += GetResurrectUpgrade(rarity);
+        else
+            _resurrect -= GetResurrectUpgrade(rarity);
+    }
+    private int GetResurrectUpgrade(byte rarity)
+    {
+        switch (rarity)
+        {
+            case 3: return 1;
+        }
+        return 0;
+    }
+    private void AddMoveSpeedUpgrade(byte rarity, bool add)
+    {
+        if (add)
+            _moveSpeed += GetMoveSpeedUpgrade(rarity);
+        else
+            _moveSpeed -= GetMoveSpeedUpgrade(rarity);
+    }
+    private double GetMoveSpeedUpgrade(byte rarity)
+    {
+        switch (rarity)
+        {
+            case 1: return 0.5;
+        }
+        return 0;
+    }
+
+    public void AddObject(Object currobject, bool throwGetEvent = false)
+    {
+        _attack += currobject.attackBaseAdd;
+        _projectileCount += currobject.projectileAdd;
+        _attackSpeed += currobject.attackSpeedBaseAdd;
+        _critChance += currobject.critChanceBaseAdd;
+        _critDamage += currobject.critDamageBaseAdd;
+        _hp += currobject.hpAdd;
+        _pierce += currobject.pierceAdd;
+        _bounce += currobject.bounceAdd;
+        _area += currobject.areaBaseAdd;
+        objects.Add(currobject);
+        if (throwGetEvent)
+            onGetObject(this, new ObjectEventArgs(currobject));
+    }
+    public void RemoveObject(Object currobject)
+    {
+        _attack -= currobject.attackBaseAdd;
+        _projectileCount -= currobject.projectileAdd;
+        _attackSpeed -= currobject.attackSpeedBaseAdd;
+        _critChance -= currobject.critChanceBaseAdd;
+        _critDamage -= currobject.critDamageBaseAdd;
+        _hp -= currobject.hpAdd;
+        _pierce -= currobject.pierceAdd;
+        _bounce -= currobject.bounceAdd;
+        _area -= currobject.areaBaseAdd;
+        objects.Remove(currobject);
+    }
+
+    public double GetDps(Upgrade currupgrade = null, Object currobject = null)
+    {
+        if (currupgrade != null) AddUpgrade(currupgrade);
+        if (currobject != null) AddObject(currobject);
+
+        double dps = attackCalc * attackSpeedCalc;
+
+        double dpsCrit = dps * critDamage;
+
+        dps = dps * (1 - critChance) + dpsCrit * critChance;
+
+        dps *= projectileCount;
+
+        if (currupgrade != null) RemoveUpgrade(currupgrade);
+        if (currobject != null) RemoveObject(currobject);
+        return Math.Round(dps, Globals.roundingPrecision);
+    }
+}
+
+public delegate void OnPlayerGetUpgrade(object source, UpgradeEventArgs args);
+public class UpgradeEventArgs : EventArgs
+{
+    private Upgrade currupgrade { get; set; }
+    public UpgradeEventArgs(Upgrade currupgrade)
+    {
+        this.currupgrade = currupgrade;
+    }
+}
+public delegate void OnPlayerGetObject(object source, ObjectEventArgs args);
+public class ObjectEventArgs : EventArgs
+{
+    public Object currobject { get; set; }
+    public ObjectEventArgs(Object currobject)
+    {
+        this.currobject = currobject;
     }
 }

@@ -9,21 +9,18 @@
         public string rarityPath { get; set; }
         public int attackBaseAdd { get; set; }
         public bool attackMultiplicatorFromHP { get; set; }
-        public double attackMultiplicator
+        public double attackMultiplicator { get; set; }
+        public double attackMultiplicatorCalc
         {
             get
             {
                 if (attackMultiplicatorFromHP)
-                    return _attackMultiplicator * Globals.player.hp + 1;
+                    return attackMultiplicator * Globals.player.hp + 1;
                 else
-                    return _attackMultiplicator;
+                    return attackMultiplicator;
             }
-            set
-            {
-                _attackMultiplicator = value;
-            }
+            set { }
         }
-        private double _attackMultiplicator;
         public int projectileAdd { get; set; }
         public double attackSpeedBaseAdd { get; set; }
         public double attackSpeedMultiplicator { get; set; }
@@ -53,6 +50,7 @@
         public Object(string name, int rarity)
         {
             this.name = name;
+
             if (rarity >= 0)
             {
                 this.rarity = (byte)rarity;
@@ -60,10 +58,7 @@
             }
             AddToObjectList();
         }
-        public Object()
-        {
-            
-        }
+        public Object() { }
 
         public void AddToObjectList()
         {
