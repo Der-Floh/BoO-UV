@@ -7,6 +7,7 @@ public sealed class Player
 {
     public event OnPlayerGetUpgrade onGetUpgrade;
     public event OnPlayerGetObject onGetObject;
+    public int attackBase { get { return _attack; } set { _attack = value; } }
     public int attack { get { return character.attack + _attack; } set { _attack = value; } }
     private int _attack;
     public double attackCalc
@@ -21,8 +22,10 @@ public sealed class Player
             return attackTemp;
         }
     }
+    public int projectileCountBase { get { return _projectileCount; } set { _projectileCount = value; } }
     public int projectileCount { get { return character.projectileCount + _projectileCount; } set { _projectileCount = value; } }
     private int _projectileCount;
+    public double attackSpeedbase { get { return _attackSpeed; } set { _attackSpeed = value; } }
     public double attackSpeed { get { return character.attackSpeed + _attackSpeed; } set { _attackSpeed = value; } }
     private double _attackSpeed;
     public double attackSpeedCalc
@@ -37,18 +40,25 @@ public sealed class Player
             return attackSpeedTemp;
         }
     }
+    public double critChanceBase { get { return _critChance; } set { _critChance = value; } }
     public double critChance { get { return character.critChance + _critChance; } set { _critChance = value; } }
     private double _critChance;
+    public double critDamageBase { get { return _critDamage; } set { _critDamage = value; } }
     public double critDamage { get { return character.critDamage + _critDamage; } set { _critDamage = value; } }
     private double _critDamage;
+    public int hpBase { get { return _hp; } set { _hp = value; } }
     public int hp { get { return character.hp + _hp; } set { _hp = value; } }
     private int _hp;
+    public int pierceBase { get { return _pierce; } set { _pierce = value; } }
     public int pierce { get { return character.pierce + _pierce; } set { _pierce = value; } }
     private int _pierce;
+    public int bounceBase { get { return _bounce; } set { _bounce = value; } }
     public int bounce { get { return character.bounce + _bounce; } set { _bounce = value; } }
     private int _bounce;
+    public double cooldownBase { get { return _cooldown; } set { _cooldown = value; } }
     public double cooldown { get { return character.cooldown + _cooldown; } set { _cooldown = value; } }
     private double _cooldown;
+    public double areaBase { get { return _area; } set { _area = value; } }
     public double area { get { return character.area + _area; } set { _area = value; } }
     private double _area;
     public double areaCalc
@@ -63,12 +73,18 @@ public sealed class Player
             return areaTemp;
         }
     }
+    public int resurrectBase { get { return _resurrect; } set { _resurrect = value; } }
     public int resurrect { get { return character.resurrect + _resurrect; } set { _resurrect = value; } }
     private int _resurrect;
+    public double moveSpeedBase { get { return _moveSpeed; } set { _moveSpeed = value; } }
     public double moveSpeed { get { return character.moveSpeed + _moveSpeed; } set { _moveSpeed = value; } }
     private double _moveSpeed;
+    public double pickupRangeBase { get { return _pickupRange; } set { _pickupRange = value; } }
     public double pickupRange { get { return character.pickupRange + _pickupRange; } set { _pickupRange = value; } }
     private double _pickupRange;
+    public int dashBase { get { return _dash; } set { _dash = value; } }
+    public int dash { get { return character.dash + _dash; } set { _dash = value; } }
+    private int _dash;
     public List<Object> objects { get; set; } = new List<Object>();
     public Character character { get; set; }
 

@@ -15,6 +15,7 @@ public sealed class Character
     public int resurrect { get; set; }
     public double moveSpeed { get; set; }
     public double pickupRange { get; set; }
+    public int dash {  get; set; }
     public string imagePath { get; set; }
     public string name { get; set; }
 

@@ -1,3 +1,5 @@
+using Microsoft.Maui.Controls;
+
 namespace BoO_UV;
 
 public partial class BlackmarketContentView : ContentView
@@ -81,20 +83,87 @@ public partial class BlackmarketContentView : ContentView
     private void ContentRemoveButton_Clicked(object sender, EventArgs e)
 	{
         amount--;
+        Apply(true);
         SetVisualStateNormal(sender);
     }
     private void ContentAddButton_Clicked(object sender, EventArgs e)
     {
         amount++;
+        Apply();
         SetVisualStateNormal(sender);
     }
 
     private void SetVisualStateNormal(object sender)
     {
         ImageButton button = (ImageButton)sender;
-        Dispatcher.DispatchDelayed(TimeSpan.FromMilliseconds(50), () =>
+        Dispatcher.DispatchDelayed(TimeSpan.FromMilliseconds(25), () =>
         {
             VisualStateManager.GoToState(button, "Normal");
         });
+    }
+
+    private void Apply(bool remove = false)
+    {
+        double percent = 0;
+        switch (upgradeType)
+        {
+            case UpgradeType.damage:
+                if (remove)
+                    Globals.player.RemoveUpgrade(new Upgrade { type = UpgradeType.damage, rarity = 0 });
+                else
+                    Globals.player.AddUpgrade(new Upgrade { type = UpgradeType.damage, rarity = 0 });
+                break;
+            case UpgradeType.attackSpeed:
+                if (remove)
+                    Globals.player.RemoveUpgrade(new Upgrade { type = UpgradeType.attackSpeed, rarity = 0 });
+                else
+                    Globals.player.AddUpgrade(new Upgrade { type = UpgradeType.attackSpeed, rarity = 0 });
+                break;
+            case UpgradeType.critChance: break;
+            case UpgradeType.critDamage: break;
+            case UpgradeType.hp:
+                if (remove)
+                    Globals.player.RemoveUpgrade(new Upgrade { type = UpgradeType.hp, rarity = 1 });
+                else
+                    Globals.player.AddUpgrade(new Upgrade { type = UpgradeType.hp, rarity = 1 });
+                break;
+            case UpgradeType.pierce: break;
+            case UpgradeType.bounce: break;
+            case UpgradeType.cooldown:
+                percent += amountAdd / 100.0;
+                if (remove)
+                    Globals.player.cooldownBase += percent;
+                else
+                    Globals.player.cooldownBase -= percent;
+                break;
+            case UpgradeType.area:
+                percent += amountAdd / 100.0;
+                if (remove)
+                    Globals.player.areaBase -= percent;
+                else
+                    Globals.player.areaBase += percent;
+                break;
+            case UpgradeType.resurrect: break;
+            case UpgradeType.dash:
+                if (remove)
+                    Globals.player.RemoveUpgrade(new Upgrade { type = UpgradeType.dash, rarity = 1 });
+                else
+                    Globals.player.AddUpgrade(new Upgrade { type = UpgradeType.dash, rarity = 1 });
+                break;
+            case UpgradeType.moveSpeed:
+                percent += amountAdd / 100.0;
+                if (remove)
+                    Globals.player.moveSpeedBase -= percent;
+                else
+                    Globals.player.moveSpeedBase += percent;
+                break;
+            case UpgradeType.pickupRange:
+                percent += amountAdd / 100.0;
+                if (remove)
+                    Globals.player.pickupRangeBase -= percent;
+                else
+                    Globals.player.pickupRangeBase += percent;
+                break;
+        }
     }
 }
