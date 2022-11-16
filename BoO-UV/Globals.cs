@@ -38,12 +38,13 @@ namespace BoO_UV
             wantedUpgrades.Add(UpgradeType.critDamage);
             wantedUpgrades.Add(UpgradeType.hp);
 
-            CreateCurrentExistingCharacters();
-
-            player = new Player(characterList.Find(x => x.name == "ranger"));
+            player = new Player();
 
             CreateCurrentExistingBlackmarketChoices();
             CreateCurrentExistingObjects();
+            CreateCurrentExistingCharacters();
+
+            player.character = characterList.Find(x => x.name == "ranger");
 
             CreateDefaultUpgrades();
             CreateDefaultObjects();
@@ -73,6 +74,7 @@ namespace BoO_UV
 
         public static void CreateDefaultObjects()
         {
+            objectViews.Clear();
             foreach (Object currobject in possibleObjects)
             {
                 objectViews.Add(new ObjectView(currobject, EmbedView));
@@ -154,7 +156,29 @@ namespace BoO_UV
         }
         public static void CreateCurrentExistingCharacters()
         {
-            new Character("ranger") { attack = 40, attackSpeed = 1.5, critChance = 0.05, critDamage = 2, hp = 3, pierce = 0, bounce = 0, cooldown = 1, area = 1, resurrect = 0, projectileCount = 1 };
+            JsonHandler jsonHandler = new JsonHandler();
+            string path = Path.Combine(jsonHandler.directorypath, jsonHandler.directoryname, jsonHandler.libdirectoryname, jsonHandler.characterdirectoryname);
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            try
+            {
+                foreach (FileInfo fileInfo in directoryInfo.GetFiles("*.json"))
+                {
+                    Character currchar = jsonHandler.ReadCharacter(fileInfo.FullName);
+                    currchar.AddToCharacterList();
+                }
+            }
+            catch { }
+
+            new Character("ranger") { attack = 40, attackSpeed = 1.5, critChance = 0.05, critDamage = 2, hp = 3, pierce = 0, bounce = 0, cooldown = 1, area = 1, resurrect = 0, projectileCount = 1, moveSpeed = 2.7, startObject = objectList.Find(x => x.name == "bow_gun") };
+            new Character("nigel") { attack = 20, attackSpeed = 1, critChance = 0.05, critDamage = 2, hp = 3, pierce = 5, bounce = 0, cooldown = 1, area = 1.1, resurrect = 0, projectileCount = 2, moveSpeed = 2.7 };
+            new Character("ollin") { attack = 40, attackSpeed = 0.75, critChance = 0.05, critDamage = 2, hp = 3, pierce = 0, bounce = 0, cooldown = 0.8, area = 1, resurrect = 0, projectileCount = 1, moveSpeed = 2.7 };
+            new Character("natoko") { attack = 40, attackSpeed = 1.5, critChance = 0.05, critDamage = 2, hp = 3, pierce = 0, bounce = 0, cooldown = 1, area = 1, resurrect = 0, projectileCount = 1, moveSpeed = 3 };
+            new Character("roger") { attack = 40, attackSpeed = 1.3, critChance = 0.05, critDamage = 2, hp = 1, pierce = 0, bounce = 0, cooldown = 1, area = 1, resurrect = 0, projectileCount = 1 , moveSpeed = 2.7 };
+
+            foreach (Character currchar in characterList)
+            {
+                jsonHandler.WriteCharacter(currchar);
+            }
         }
         public static void CreateCurrentExistingBlackmarketChoices()
         {

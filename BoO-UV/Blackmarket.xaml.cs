@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace BoO_UV;
 
-public partial class Blackmarket : ContentPage
+public sealed partial class Blackmarket : ContentPage
 {
 	public Blackmarket()
 	{

@@ -1,4 +1,6 @@
-﻿namespace BoO_UV;
+﻿using Microsoft.VisualBasic;
+
+namespace BoO_UV;
 
 public sealed class Character
 {
@@ -18,6 +20,7 @@ public sealed class Character
     public int dash {  get; set; }
     public string imagePath { get; set; }
     public string name { get; set; }
+    public Object startObject {  get; set; }
 
     public Character(string name)
     {

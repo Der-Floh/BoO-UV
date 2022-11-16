@@ -86,25 +86,9 @@ public sealed class Player
     public int dash { get { return character.dash + _dash; } set { _dash = value; } }
     private int _dash;
     public List<Object> objects { get; set; } = new List<Object>();
-    public Character character { get; set; }
+    public Character character { get; set; } = new Character();
 
-    public Player(Character character)
-    {
-        this.character = character;
-        /*
-        this.attack = attack;
-        this.attackSpeed = attackSpeed;
-        this.critChance = critChance;
-        this.critDamage = critDamage;
-        this.hp = hp;
-        this.pierce = pierce;
-        this.bounce = bounce;
-        this.cooldown = cooldown;
-        this.area = area;
-        this.resurrect = resurrect;
-        this.projectileCount = projectileCount;
-        */
-    }
+    public Player() { }
 
     public void AddUpgrade(Upgrade upgrade, bool throwGetEvent = false)
     {

@@ -1,6 +1,6 @@
 namespace BoO_UV;
 
-public partial class ObjectView : ContentView
+public sealed partial class ObjectView : ContentView
 {
     public Object currobject
     {

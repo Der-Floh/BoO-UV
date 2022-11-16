@@ -1,6 +1,6 @@
 namespace BoO_UV;
 
-public partial class UpgradeView : ContentView
+public sealed partial class UpgradeView : ContentView
 {
     public Upgrade upgrade
     {

@@ -2,7 +2,7 @@
 
 namespace BoO_UV;
 
-public partial class MainPage : ContentPage
+public sealed partial class MainPage : ContentPage
 {
     public MainPage()
     {

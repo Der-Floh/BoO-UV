@@ -1,6 +1,6 @@
 namespace BoO_UV;
 
-public partial class CharacterStatsPage : ContentPage
+public sealed partial class CharacterStatsPage : ContentPage
 {
     public CharacterStatsPage()
     {
@@ -64,7 +64,8 @@ public partial class CharacterStatsPage : ContentPage
     private void ResetButton_Clicked(object sender, EventArgs e)
     {
         //todo reset outdated
-        Player newPlayer = new Player(Globals.characterList.Find(x => x.name == "ranger"));
+        Player newPlayer = new Player();
+        newPlayer.character = Globals.characterList.Find(x => x.name == "ranger");
         Globals.player.attack = newPlayer.attack;
         Globals.player.projectileCount = 1;
         Globals.player.attackSpeed = newPlayer.attackSpeed;
@@ -77,7 +78,6 @@ public partial class CharacterStatsPage : ContentPage
         Globals.player.area = newPlayer.area;
         Globals.player.resurrect = newPlayer.resurrect;
         Globals.player.objects.Clear();
-        Globals.objectViews.Clear();
         Globals.RecalculatePossibleObjects();
         Globals.CreateDefaultObjects();
 

@@ -11,8 +11,9 @@ namespace BoO_UV
         public string directorypath { get; set; } = FileSystem.Current.AppDataDirectory;
         public string objectdirectoryname { get; set; } = "objects";
         public string libdirectoryname { get; set; } = "lib";
+        public string characterdirectoryname { get; set; } = "characters";
 
-        #region Tile
+        #region Object
         public void WriteObject(Object currobject)
         {
             string path = Path.Combine(new string[] { directorypath, directoryname, libdirectoryname, objectdirectoryname, currobject.name });
@@ -27,6 +28,23 @@ namespace BoO_UV
         {
             string path = Path.Combine(new string[] { directorypath, directoryname, libdirectoryname, objectdirectoryname, currobject.name });
             return ReadObject(path + ".json");
+        }
+        #endregion
+        #region Character
+        public void WriteCharacter(Character currchar)
+        {
+            string path = Path.Combine(new string[] { directorypath, directoryname, libdirectoryname, characterdirectoryname, currchar.name });
+            CreateJsonFile(currchar, path + ".json");
+        }
+        public void DeleteCharacter(in Character currchar)
+        {
+            string path = Path.Combine(new string[] { directorypath, directoryname, libdirectoryname, characterdirectoryname, currchar.name });
+            DeleteFile(path + ".json");
+        }
+        public Character GetCharacter(in Character currchar)
+        {
+            string path = Path.Combine(new string[] { directorypath, directoryname, libdirectoryname, characterdirectoryname, currchar.name });
+            return ReadCharacter(path + ".json");
         }
         #endregion
 
@@ -58,6 +76,17 @@ namespace BoO_UV
                 Object currobject = JsonSerializer.Deserialize<Object>(openStream);
                 openStream.Dispose();
                 return currobject;
+            }
+            return null;
+        }
+        public Character ReadCharacter(string path)
+        {
+            if (File.Exists(path))
+            {
+                using FileStream openStream = File.OpenRead(path);
+                Character currchar = JsonSerializer.Deserialize<Character>(openStream);
+                openStream.Dispose();
+                return currchar;
             }
             return null;
         }
