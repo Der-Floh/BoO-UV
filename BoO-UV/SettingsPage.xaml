@@ -6,6 +6,7 @@
     <StackLayout Margin="50" Spacing="50">
         <Button x:Name="SaveLocationButton" Text="Open Save Location" Clicked="SaveLocationButton_Clicked"/>
         <Button x:Name="ResetObjectButton" Text="Reset Objects" Clicked="ResetObjectsButton_Clicked"/>
+        <Button x:Name="ResetCharacterButton" Text="Reset Characters" Clicked="ResetCharactersButton_Clicked"/>
         <VerticalStackLayout>
             <Label Text="Upgrade Amount per Row"/>
             <Entry x:Name="UpgradeAmountEntry" Keyboard="Numeric" TextChanged="UpgradeAmountEntry_TextChanged"/>

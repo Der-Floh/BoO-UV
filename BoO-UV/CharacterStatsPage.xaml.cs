@@ -2,6 +2,7 @@ namespace BoO_UV;
 
 public sealed partial class CharacterStatsPage : ContentPage
 {
+    private int currCharacterNo = 0;
     public CharacterStatsPage()
     {
         InitializeComponent();
@@ -23,16 +24,75 @@ public sealed partial class CharacterStatsPage : ContentPage
 
         PrevCharacterButton.Clicked += PrevCharacterButton_Clicked;
         NextCharacterButton.Clicked += NextCharacterButton_Clicked;
-    }
+        /*
+        PrevCharacterButtonGraphicsView.StartHoverInteraction += PrevCharacterButtonGraphicsView_StartHoverInteraction;
+        PrevCharacterButtonGraphicsView.EndHoverInteraction += PrevCharacterButtonGraphicsView_EndHoverInteraction;
 
+        NextCharacterButtonGraphicsView.StartHoverInteraction += NextCharacterButtonGraphicsView_StartHoverInteraction;
+        NextCharacterButtonGraphicsView.EndHoverInteraction += NextCharacterButtonGraphicsView_EndHoverInteraction;
+        */
+        ChangeCharacter(Globals.characterList.Find(x => x.name == "ranger"));
+    }
+    /*
+    private void PrevCharacterButtonGraphicsView_StartHoverInteraction(object sender, TouchEventArgs e)
+    {
+        VisualStateManager.GoToState(PrevCharacterButton, "Hover");
+    }
+    private void PrevCharacterButtonGraphicsView_EndHoverInteraction(object sender, EventArgs e)
+    {
+        VisualStateManager.GoToState(PrevCharacterButton, "Normal");
+    }
+    private void NextCharacterButtonGraphicsView_StartHoverInteraction(object sender, TouchEventArgs e)
+    {
+        VisualStateManager.GoToState(NextCharacterButton, "Hover");
+    }
+    private void NextCharacterButtonGraphicsView_EndHoverInteraction(object sender, EventArgs e)
+    {
+        VisualStateManager.GoToState(NextCharacterButton, "Normal");
+    }
+    */
     private void PrevCharacterButton_Clicked(object sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        currCharacterNo--;
+        if (currCharacterNo == -1)
+            currCharacterNo = Globals.characterList.Count - 1;
+        ChangeCharacter(Globals.characterList[currCharacterNo]);
+        SetVisualStateNormal(sender);
     }
 
     private void NextCharacterButton_Clicked(object sender, EventArgs e)
     {
-        
+        currCharacterNo++;
+        if (currCharacterNo == Globals.characterList.Count)
+            currCharacterNo = 0;
+        ChangeCharacter(Globals.characterList[currCharacterNo]);
+        SetVisualStateNormal(sender);
+    }
+
+    private void ChangeCharacter(Character character)
+    {
+        CharacterNameLabel.Text = character.name.ToUpper();
+        CharacterImage.Source = character.imagePath;
+        CharacterObjectNameLabel.Text = character.startObject.name;
+        CharacterObjectDescriptionLabel.Text = character.startObject.description;
+        CharacterObjectHolderImg.Source = character.startObject.holderPath;
+        CharacterObjectRarityImg.Source = character.startObject.rarityPath;
+        CharacterObjectTypeImg.Source = character.startObject.imagePath;
+        if (character.difficulty >= 1)
+            CharacterDifficultyStarLitImage1.IsVisible = true;
+        else
+            CharacterDifficultyStarLitImage1.IsVisible = false;
+        if (character.difficulty >= 2)
+            CharacterDifficultyStarLitImage2.IsVisible = true;
+        else
+            CharacterDifficultyStarLitImage2.IsVisible = false;
+        if (character.difficulty >= 3)
+            CharacterDifficultyStarLitImage3.IsVisible = true;
+        else
+            CharacterDifficultyStarLitImage3.IsVisible = false;
+
+        Globals.player.character = character;
+        UpdateStatFields();
     }
 
     private void CharacterStatsPage_Disappearing(object sender, EventArgs e)
@@ -46,45 +106,63 @@ public sealed partial class CharacterStatsPage : ContentPage
         Globals.player.pierce = int.Parse(PierceEntry.Text) - Globals.player.character.pierce;
         Globals.player.bounce = int.Parse(BounceEntry.Text) - Globals.player.character.bounce;
         Globals.player.hp = int.Parse(HPEntry.Text) - Globals.player.character.hp;
+        Globals.player.dash = int.Parse(DashEntry.Text) - Globals.player.character.dash;
     }
 
     private void CharacterStatsPage_Appearing(object sender, EventArgs e)
     {
+        UpdateStatFields();
+    }
+
+    private void UpdateStatFields()
+    {
         AttackEntry.Text = Globals.player.attack.ToString();
         AttackSpeedEntry.Text = Math.Round(Globals.player.attackSpeed, Globals.roundingPrecision).ToString();
-        CritChanceEntry.Text = (Math.Round(Globals.player.critChance * 100.0, Globals.roundingPrecision)).ToString();
-        CritDamageEntry.Text = (Math.Round(Globals.player.critDamage * 100.0, Globals.roundingPrecision)).ToString();
-        AreaEntry.Text = (Math.Round(Globals.player.area * 100.0, Globals.roundingPrecision)).ToString();
-        CooldownEntry.Text = (Math.Round(Globals.player.cooldown * 100.0, Globals.roundingPrecision)).ToString();
+        CritChanceEntry.Text = Math.Round(Globals.player.critChance * 100.0, Globals.roundingPrecision).ToString();
+        CritDamageEntry.Text = Math.Round(Globals.player.critDamage * 100.0, Globals.roundingPrecision).ToString();
+        AreaEntry.Text = Math.Round(Globals.player.area * 100.0, Globals.roundingPrecision).ToString();
+        CooldownEntry.Text = Math.Round(Globals.player.cooldown * 100.0, Globals.roundingPrecision).ToString();
         PierceEntry.Text = Globals.player.pierce.ToString();
         BounceEntry.Text = Globals.player.bounce.ToString();
         HPEntry.Text = Globals.player.hp.ToString();
+        DashEntry.Text = Globals.player.dash.ToString();
     }
 
     private void ResetButton_Clicked(object sender, EventArgs e)
     {
         //todo reset outdated
         Player newPlayer = new Player();
-        newPlayer.character = Globals.characterList.Find(x => x.name == "ranger");
-        Globals.player.attack = newPlayer.attack;
-        Globals.player.projectileCount = 1;
-        Globals.player.attackSpeed = newPlayer.attackSpeed;
-        Globals.player.critChance = newPlayer.critChance;
-        Globals.player.critDamage = newPlayer.critDamage;
-        Globals.player.hp = newPlayer.hp;
-        Globals.player.pierce = newPlayer.pierce;
-        Globals.player.bounce = newPlayer.bounce;
-        Globals.player.cooldown = newPlayer.cooldown;
-        Globals.player.area = newPlayer.area;
-        Globals.player.resurrect = newPlayer.resurrect;
+        newPlayer.character = Globals.characterList.Find(x => x.name == Globals.characterList[currCharacterNo].name);
+        Globals.player.attack = newPlayer.attack - newPlayer.character.attack;
+        Globals.player.projectileCount = newPlayer.projectileCount - newPlayer.character.projectileCount;
+        Globals.player.attackSpeed = newPlayer.attackSpeed - newPlayer.character.attackSpeed;
+        Globals.player.critChance = newPlayer.critChance - newPlayer.character.critChance;
+        Globals.player.critDamage = newPlayer.critDamage - newPlayer.character.critDamage;
+        Globals.player.hp = newPlayer.hp - newPlayer.character.hp;
+        Globals.player.pierce = newPlayer.pierce - newPlayer.character.pierce;
+        Globals.player.bounce = newPlayer.bounce - newPlayer.character.bounce;
+        Globals.player.cooldown = newPlayer.cooldown - newPlayer.character.cooldown;
+        Globals.player.area = newPlayer.area - newPlayer.character.area;
+        Globals.player.resurrect = newPlayer.resurrect - newPlayer.character.resurrect;
+        Globals.player.moveSpeed = newPlayer.moveSpeed - newPlayer.character.moveSpeed;
+        Globals.player.dash = newPlayer.dash - newPlayer.character.dash;
         Globals.player.objects.Clear();
         Globals.RecalculatePossibleObjects();
         Globals.CreateDefaultObjects();
 
-        CharacterStatsPage_Appearing(this, new EventArgs());
+        UpdateStatFields();
 
         Button button = (Button)sender;
         Dispatcher.DispatchDelayed(TimeSpan.FromMilliseconds(50), () =>
+        {
+            VisualStateManager.GoToState(button, "Normal");
+        });
+    }
+
+    private void SetVisualStateNormal(object sender)
+    {
+        ImageButton button = (ImageButton)sender;
+        Dispatcher.DispatchDelayed(TimeSpan.FromMilliseconds(25), () =>
         {
             VisualStateManager.GoToState(button, "Normal");
         });

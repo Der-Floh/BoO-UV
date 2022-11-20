@@ -30,11 +30,11 @@ public sealed partial class ObjectView : ContentView
         labels.Clear();
         AddLabels(Globals.currText);
 
-        Globals.player.AddObject(currobject);
+        Globals.player.AddObject(currobject, false, false);
 
         AddLabels(Globals.newText);
 
-        Globals.player.RemoveObject(currobject);
+        Globals.player.RemoveObject(currobject, false);
 
         //labels.Add(new Label { Text = "Curr dps: " + Globals.player.GetDps().ToString() });
         labels.Add(new Label { Text = Globals.dpsText + Globals.player.GetDps(null, currobject).ToString() });
@@ -95,12 +95,19 @@ public sealed partial class ObjectView : ContentView
 
         if (currobject.resurrectAdd != 0)
             labels.Add(new Label { Text = prefix + "Resurrect: " + Globals.player.resurrect });
+
+        if (currobject.moveSpeedMultiplicator != 0)
+            labels.Add(new Label { Text = prefix + "Movespeed: " + Math.Round(Globals.player.moveSpeedCalc, Globals.roundingPrecision) });
+
+        if (currobject.projectileAdd != 0)
+            labels.Add(new Label { Text = prefix + "Projectiles: " + Globals.player.projectileCount });
     }
 
     private void OnButtonClicked(object sender, EventArgs args)
     {
         Globals.player.AddObject(currobject, true);
-        Globals.objectViews.Remove(this);
+        //Globals.possibleObjects.Remove(currobject);
+        //Globals.objectViews.Remove(this);
         foreach (UpgradeView view in Globals.upgradeViews)
         {
             view.UpdateValues();

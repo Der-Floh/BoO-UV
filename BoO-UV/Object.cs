@@ -3,18 +3,20 @@
 public sealed class Object
 {
     public string name { get; set; }
+    public string description { get; set; }
     public byte rarity { get; set; }
     public string imagePath { get; set; }
     public string holderPath { get; set; }
     public string rarityPath { get; set; }
+    public bool multiplicatorsFromHP { get; set; }
+    public int cooldown { get; set; }
     public int attackBaseAdd { get; set; }
-    public bool attackMultiplicatorFromHP { get; set; }
     public double attackMultiplicator { get; set; }
     public double attackMultiplicatorCalc
     {
         get
         {
-            if (attackMultiplicatorFromHP)
+            if (multiplicatorsFromHP)
                 return attackMultiplicator * Globals.player.hp + 1;
             else
                 return attackMultiplicator;
@@ -34,18 +36,28 @@ public sealed class Object
     public int bounceAdd { get; set; }
     public int hpAdd { get; set; }
     public int resurrectAdd { get; set; }
+    public int dashAdd { get; set; }
+    public double moveSpeedMultiplicator { get; set; }
+    public double moveSpeedMultiplicatorCalc
+    {
+        get
+        {
+            if (multiplicatorsFromHP)
+                return moveSpeedMultiplicator * Globals.player.hp + 1;
+            else
+                return moveSpeedMultiplicator;
+        }
+        set { }
+    }
     public bool hasEffect
     {
         get
         {
-            return attackBaseAdd != 0 || attackMultiplicator != 0 || attackSpeedBaseAdd != 0 || attackSpeedMultiplicator != 0 || critChanceBaseAdd != 0 || critDamageBaseAdd != 0 || areaBaseAdd != 0 || areaMultiplicator != 0 || hpAdd != 0 || pierceAdd != 0 || bounceAdd != 0;
+            return attackBaseAdd != 0 || attackMultiplicator != 0 || attackSpeedBaseAdd != 0 || attackSpeedMultiplicator != 0 || critChanceBaseAdd != 0 || critDamageBaseAdd != 0 || areaBaseAdd != 0 || areaMultiplicator != 0 || hpAdd != 0 || pierceAdd != 0 || bounceAdd != 0 || projectileAdd != 0;
         }
-        set
-        {
-            _hasEffect = value;
-        }
+        set { }
     }
-    private bool _hasEffect;
+    public ObjectView objectView;
 
     public Object(string name, int rarity)
     {

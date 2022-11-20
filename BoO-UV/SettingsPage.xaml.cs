@@ -40,6 +40,11 @@ public partial class SettingsPage : ContentPage
         Globals.ResetObjects();
     }
 
+    private void ResetCharactersButton_Clicked(object sender, EventArgs e)
+    {
+        Globals.ResetCharacters();
+    }
+
     private void UpgradeAmountEntry_TextChanged(object sender, TextChangedEventArgs e)
     {
         int attack = 0;

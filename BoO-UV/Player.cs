@@ -8,7 +8,7 @@ public sealed class Player
     public event OnPlayerGetUpgrade onGetUpgrade;
     public event OnPlayerGetObject onGetObject;
     public int attackBase { get { return _attack; } set { _attack = value; } }
-    public int attack { get { return character.attack + _attack; } set { _attack = value; } }
+    public int attack { get { if (character != null) return character.attack + _attack; else return _attack; } set { _attack = value; } }
     private int _attack;
     public double attackCalc
     {
@@ -23,10 +23,10 @@ public sealed class Player
         }
     }
     public int projectileCountBase { get { return _projectileCount; } set { _projectileCount = value; } }
-    public int projectileCount { get { return character.projectileCount + _projectileCount; } set { _projectileCount = value; } }
+    public int projectileCount { get { if (character != null) return character.projectileCount + _projectileCount; else return _projectileCount; } set { _projectileCount = value; } }
     private int _projectileCount;
     public double attackSpeedbase { get { return _attackSpeed; } set { _attackSpeed = value; } }
-    public double attackSpeed { get { return character.attackSpeed + _attackSpeed; } set { _attackSpeed = value; } }
+    public double attackSpeed { get { if (character != null) return character.attackSpeed + _attackSpeed; else return _attackSpeed; } set { _attackSpeed = value; } }
     private double _attackSpeed;
     public double attackSpeedCalc
     {
@@ -41,25 +41,25 @@ public sealed class Player
         }
     }
     public double critChanceBase { get { return _critChance; } set { _critChance = value; } }
-    public double critChance { get { return character.critChance + _critChance; } set { _critChance = value; } }
+    public double critChance { get { if (character != null) return character.critChance + _critChance; else return _critChance; } set { _critChance = value; } }
     private double _critChance;
     public double critDamageBase { get { return _critDamage; } set { _critDamage = value; } }
-    public double critDamage { get { return character.critDamage + _critDamage; } set { _critDamage = value; } }
+    public double critDamage { get { if (character != null) return character.critDamage + _critDamage; else return _critDamage; } set { _critDamage = value; } }
     private double _critDamage;
     public int hpBase { get { return _hp; } set { _hp = value; } }
-    public int hp { get { return character.hp + _hp; } set { _hp = value; } }
+    public int hp { get { if (character != null) return character.hp + _hp; else return _hp; } set { _hp = value; } }
     private int _hp;
-    public int pierceBase { get { return _pierce; } set { _pierce = value; } }
-    public int pierce { get { return character.pierce + _pierce; } set { _pierce = value; } }
+    public int pierceBase { get { return _pierce; }set { _pierce = value; } }
+    public int pierce { get { if (character != null) return character.pierce + _pierce; else return _pierce; } set { _pierce = value; } }
     private int _pierce;
     public int bounceBase { get { return _bounce; } set { _bounce = value; } }
-    public int bounce { get { return character.bounce + _bounce; } set { _bounce = value; } }
+    public int bounce { get { if (character != null) return character.bounce + _bounce; else return _bounce; } set { _bounce = value; } }
     private int _bounce;
     public double cooldownBase { get { return _cooldown; } set { _cooldown = value; } }
-    public double cooldown { get { return character.cooldown + _cooldown; } set { _cooldown = value; } }
+    public double cooldown { get { if (character != null) return character.cooldown + _cooldown; else return _cooldown; } set { _cooldown = value; } }
     private double _cooldown;
     public double areaBase { get { return _area; } set { _area = value; } }
-    public double area { get { return character.area + _area; } set { _area = value; } }
+    public double area { get { if (character != null) return character.area + _area; else return _area; } set { _area = value; } }
     private double _area;
     public double areaCalc
     {
@@ -74,19 +74,44 @@ public sealed class Player
         }
     }
     public int resurrectBase { get { return _resurrect; } set { _resurrect = value; } }
-    public int resurrect { get { return character.resurrect + _resurrect; } set { _resurrect = value; } }
+    public int resurrect { get { if (character != null) return character.resurrect + _resurrect; else return _resurrect; } set { _resurrect = value; } }
     private int _resurrect;
     public double moveSpeedBase { get { return _moveSpeed; } set { _moveSpeed = value; } }
-    public double moveSpeed { get { return character.moveSpeed + _moveSpeed; } set { _moveSpeed = value; } }
+    public double moveSpeed { get { if (character != null) return character.moveSpeed + _moveSpeed; else return _moveSpeed; } set { _moveSpeed = value; } }
     private double _moveSpeed;
+    public double moveSpeedCalc
+    {
+        get
+        {
+            double moveSpeedTemp = moveSpeed;
+            foreach (Object currObject in objects.Where(x => x.moveSpeedMultiplicator != 0))
+            {
+                moveSpeedTemp *= currObject.moveSpeedMultiplicatorCalc;
+            }
+            return moveSpeedTemp;
+        }
+    }
     public double pickupRangeBase { get { return _pickupRange; } set { _pickupRange = value; } }
-    public double pickupRange { get { return character.pickupRange + _pickupRange; } set { _pickupRange = value; } }
+    public double pickupRange { get { if (character != null) return character.pickupRange + _pickupRange; else return _pickupRange; } set { _pickupRange = value; } }
     private double _pickupRange;
     public int dashBase { get { return _dash; } set { _dash = value; } }
-    public int dash { get { return character.dash + _dash; } set { _dash = value; } }
+    public int dash { get { if (character != null) return character.dash + _dash; else return _dash; } set { _dash = value; } }
     private int _dash;
     public List<Object> objects { get; set; } = new List<Object>();
-    public Character character { get; set; } = new Character();
+    public Character character 
+    {
+        get {  return _character; }
+        set
+        {
+            if (_character != null)
+                if (_character.startObject != null)
+                    RemoveObject(_character.startObject);
+            _character = value;
+            if (_character.startObject != null && _character.startObject.hasEffect)
+                AddObject(_character.startObject);
+        }
+    }
+    private Character _character;
 
     public Player() { }
 
@@ -323,7 +348,7 @@ public sealed class Player
         return 0;
     }
 
-    public void AddObject(Object currobject, bool throwGetEvent = false)
+    public void AddObject(Object currobject, bool throwGetEvent = false, bool updatePossibleObjects = true)
     {
         _attack += currobject.attackBaseAdd;
         _projectileCount += currobject.projectileAdd;
@@ -335,10 +360,12 @@ public sealed class Player
         _bounce += currobject.bounceAdd;
         _area += currobject.areaBaseAdd;
         objects.Add(currobject);
+        if (updatePossibleObjects)
+            Globals.possibleObjects.RemoveAll(x => x.name == currobject.name);
         if (throwGetEvent)
             onGetObject(this, new ObjectEventArgs(currobject));
     }
-    public void RemoveObject(Object currobject)
+    public void RemoveObject(Object currobject, bool updatePossibleObjects = true)
     {
         _attack -= currobject.attackBaseAdd;
         _projectileCount -= currobject.projectileAdd;
@@ -350,12 +377,14 @@ public sealed class Player
         _bounce -= currobject.bounceAdd;
         _area -= currobject.areaBaseAdd;
         objects.Remove(currobject);
+        if (updatePossibleObjects)
+            Globals.possibleObjects.Add(currobject);
     }
 
     public double GetDps(Upgrade currupgrade = null, Object currobject = null)
     {
         if (currupgrade != null) AddUpgrade(currupgrade);
-        if (currobject != null) AddObject(currobject);
+        if (currobject != null) AddObject(currobject, false, false);
 
         double dps = attackCalc * attackSpeedCalc;
 
@@ -366,7 +395,7 @@ public sealed class Player
         dps *= projectileCount;
 
         if (currupgrade != null) RemoveUpgrade(currupgrade);
-        if (currobject != null) RemoveObject(currobject);
+        if (currobject != null) RemoveObject(currobject, false);
         return Math.Round(dps, Globals.roundingPrecision);
     }
 }

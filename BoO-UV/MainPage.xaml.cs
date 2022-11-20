@@ -33,10 +33,10 @@ public sealed partial class MainPage : ContentPage
     private void AddObjectButtonClicked(object sender, EventArgs args)
     {
         ObjectStackGrid.Clear();
-        foreach (ObjectView objectView in Globals.objectViews)
+        foreach (Object currobject in Globals.possibleObjects)
         {
-            objectView.UpdateValues();
-            ObjectStackGrid.Rebuild(objectView);
+            currobject.objectView.UpdateValues();
+            ObjectStackGrid.Rebuild(currobject.objectView);
         }
         /*
         foreach (Object currobject in possibleObjects)
