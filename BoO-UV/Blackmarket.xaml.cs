@@ -1,6 +1,4 @@
-using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Shapes;
-using System.Reflection;
 
 namespace BoO_UV;
 

@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
 		<RootNamespace>BoO_UV</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -16,61 +16,27 @@
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.boo_uv</ApplicationId>
-		<ApplicationIdGuid>347CF3BF-B359-4FEF-8327-CAA1A9F831CC</ApplicationIdGuid>
+		<ApplicationIdGuid>64d49f8a-d4f1-416e-8065-692774afbb33</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<DefaultLanguage>en</DefaultLanguage>
 		<GenerateAppInstallerFile>False</GenerateAppInstallerFile>
 		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+		<PackageCertificateKeyFile>BoO-UV_TemporaryKey.pfx</PackageCertificateKeyFile>
 		<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
 		<AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-		<AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
+		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
 		<GenerateTestArtifacts>True</GenerateTestArtifacts>
-		<AppInstallerUri>C:/Program Files/BoO-UV</AppInstallerUri>
 		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-		<PackageCertificateKeyFile>BoO-UV_TemporaryKey.pfx</PackageCertificateKeyFile>
-		<RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
-		<DefaultLanguage>en</DefaultLanguage>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
-	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-android|AnyCPU'">
-	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
-	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-ios|AnyCPU'">
-	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-maccatalyst|AnyCPU'">
-	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-maccatalyst|AnyCPU'">
-	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows10.0.19041.0|AnyCPU'">
-	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows10.0.19041.0|AnyCPU'">
-	  <DebugType>embedded</DebugType>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -93,86 +59,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\blackmarket\blackmarket_goldnuggetsmall.svg" />
-	  <None Remove="Resources\Images\blackmarket\blackmarket_metaholder.svg" />
-	  <None Remove="Resources\Images\blackmarket\blackmarket_namesign.svg" />
-	  <None Remove="Resources\Images\blackmarket\blackmarket_roger.svg" />
-	  <None Remove="Resources\Images\blackmarket\blackmarket_roger_dialogue.svg" />
-	  <None Remove="Resources\Images\golden_chest_open.svg" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\Toolkit\Toolkit.csproj" />
-	</ItemGroup>
-	<!--
-	<ItemGroup>
-	  <None Remove="Resources\Images\arrow_flights.png" />
-	  <None Remove="Resources\Images\Holder_Common.png" />
-	  <None Remove="Resources\Images\Holder_Epic.png" />
-	  <None Remove="Resources\Images\Holder_Legendary.png" />
-	  <None Remove="Resources\Images\Holder_Rare.png" />
-	</ItemGroup>
-	-->
-
-	<ItemGroup>
-	  <Compile Update="EmbedView.xaml.cs">
-	    <DependentUpon>EmbedView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="UpgradeView.xaml.cs">
-	    <DependentUpon>UpgradeView.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiImage Update="Resources\Images\blackmarket\blackmarket_metaholder.svg">
-	    <CopyToOutputDirectory></CopyToOutputDirectory>
-	  </MauiImage>
-	  <MauiImage Update="Resources\Images\blackmarket\blackmarket_namesign.svg">
-	    <CopyToOutputDirectory></CopyToOutputDirectory>
-	  </MauiImage>
-	  <MauiImage Update="Resources\Images\blackmarket\blackmarket_roger.svg">
-	    <CopyToOutputDirectory></CopyToOutputDirectory>
-	  </MauiImage>
-	  <MauiImage Update="Resources\Images\blackmarket\blackmarket_roger_dialogue.svg" BaseSize="320,320">
-	    <CopyToOutputDirectory></CopyToOutputDirectory>
-	  </MauiImage>
-	  <MauiImage Update="Resources\Images\character\bgcharacterpresentation.svg">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </MauiImage>
-	  <MauiImage Update="Resources\Images\character\charaselect_wanted.svg">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </MauiImage>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="Blackmarket.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="BlackmarketContentView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="CharacterStatsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="EmbedView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="ObjectView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="SettingsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="StackGrid.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="UpgradeView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Properties\PublishProfiles\" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
 </Project>

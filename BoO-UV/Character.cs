@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualBasic;
-
-namespace BoO_UV;
+﻿namespace BoO_UV;
 
 public sealed class Character
 {

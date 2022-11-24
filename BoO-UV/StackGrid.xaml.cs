@@ -1,5 +1,3 @@
-using System.Collections.ObjectModel;
-
 namespace BoO_UV;
 
 public partial class StackGrid : ContentView

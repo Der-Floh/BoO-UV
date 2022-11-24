@@ -1,5 +1,3 @@
-using Microsoft.Maui.Controls;
-
 namespace BoO_UV;
 
 public sealed partial class BlackmarketContentView : ContentView
