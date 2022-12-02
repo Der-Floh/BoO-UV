@@ -5,6 +5,10 @@ additionally adding the overall dps value.
 In advance I have to say that the stats are more or less easy calculatable, but the dps values can very quickly become very hard to calculate.
 So therefor expect errors in calculations.
 
+## Presentation
+
+https://user-images.githubusercontent.com/65826571/205346721-60fd81d3-6a35-4f26-9e85-2013d6aa560e.mp4
+
 ## Idea by:
 The wonderful Dex:
 
