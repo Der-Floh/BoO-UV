@@ -10,13 +10,13 @@ So therefor expect errors in calculations.
 https://user-images.githubusercontent.com/65826571/205346721-60fd81d3-6a35-4f26-9e85-2013d6aa560e.mp4
 
 ## Idea by:
-The wonderful Dex:
+The wonderful Dex. Check out his [Youtube-Channel](https://www.youtube.com/@DexTag):
 
-[![Dex](https://cdn.discordapp.com/avatars/133907727134097408/67d9d4fffb90514b598948359c88dd1c.png)](https://www.youtube.com/c/DexCitingGaming)
-
-Check out his [Youtube-Channel](https://www.youtube.com/c/DexCitingGaming)
+[![Dex](https://cdn.discordapp.com/avatars/133907727134097408/67d9d4fffb90514b598948359c88dd1c.png)](https://www.youtube.com/@DexTag/membership)
 
 ### Current Build can be found under [Releases](https://github.com/Der-Floh/BoO-UV/releases)
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/der.floh)
 
 ### When Things go Bad
 Should things go bad with the Objects then you can delete their .json file found in the objects folder found when Pressing the savelocation Button in the Settings page
